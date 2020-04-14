@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CoinConnect</title>
+	<script type="text/javascript">
+		function makeCall(val) {
+			//make request object
+			request = new XMLHttpRequest();
+
+			//set url for request
+			request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols="+val, true);
+
+			//set up event handler
+			request.onreadystatechange = function() {
+				if (request.readyState == 4 && request.status == 200) {
+					//successful request, use data
+					//alert(request.responseText);
+					result = request.responseText;
+					//document.getElementById("rawdata").innerHTML = "Raw JSON: " + result;
+					obj = JSON.parse(result);
+					str = "Name: " + obj.data.coins[0].name + ", Current Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2);
+					document.getElementById("data").innerHTML = str;
+
+				} else if (request.readyState == 4) {
+					//failed request, handle it
+				} else {
+					//incomplete request, handle it
+					document.getElementById("data").innerHTML = "Request Processing...";
+				}
+			}
+
+			//send request
+			request.send();
+		}
+	</script>
+</head>
+<body>
+	<h1>CoinConnect Homepage</h1>
+	<p>Get in touch with your inner high-volatility investor!</p>
+	<p>Type a symbol here (eg BTC, ETH)<input type="text" id="symbol" name="symbol" value=""><br></p>
+	<button onclick="makeCall(document.getElementById('symbol').value)">Click Me to get data!</button>
+	<p id="rawdata"></p>
+	<p id="data"></p>
+	<p>Disclaimer: We take no responsibility for the money gained or lost due to information obtained from this service.</p>
+	<p><b>Notes:</b></p>
+	<p>Database: MongoDB - linked somehow</p>
+	<p>Server side code: Node.js?</a></p>
+	<p>Group Members: Ethan Schreiber, Qijin Chau, Sam Saron, Jerry Wang</p>
+	<p>thx for stopping by :) also pls don't hack us</p>
+</body>
+</html>
