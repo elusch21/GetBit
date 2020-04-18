@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>CoinConnect</title>
 	<script type="text/javascript">
 		function makeCall(val) {
@@ -23,9 +24,14 @@
 
 				} else if (request.readyState == 4) {
 					//failed request, handle it
-				} else {
+				} else if (request.readyState == 3) {
 					//incomplete request, handle it
-					document.getElementById("data").innerHTML = "Request Processing...";
+					if (document.getElementById("symbol").value == "") {
+						alert("Please Enter a Symbol");
+					} else {
+						alert("No Coin Corresponding to Symbol " + "'" +
+						document.getElementById("symbol").value + "'");
+					}
 				}
 			}
 
@@ -35,6 +41,11 @@
 	</script>
 </head>
 <body>
+	<ul id="nav">
+		<li><a class="current" href="index.html" onclick="return false">Homepage</a></li>
+		<li><a href="documentation.html">Documentation</a></li>
+	</ul>
+
 	<h1>CoinConnect Homepage</h1>
 	<p>Get in touch with your inner high-volatility investor!</p>
 	<p>Type a symbol here (eg BTC, ETH)<input type="text" id="symbol" name="symbol" value=""><br></p>
