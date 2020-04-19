@@ -1,4 +1,4 @@
-/* NAV BAR RULES*/
+/* NAV BAR RULES */
 .nav {
   overflow: hidden;
   background-color: #1c84c6;
@@ -66,7 +66,7 @@ div.nav a:hover:not(.current) {
   display: block;
 }
 
-/* LOGIN FORM RULES*/
+/* SIGN UP AND LOGIN FORM RULES */
 .account-pages{
   width: 360px;
   padding: 10% 0 0;
@@ -95,7 +95,7 @@ div.nav a:hover:not(.current) {
   font-size: 14px;
 }
 
-.form button{
+.form .button{
   font-family: "Roboto", sans-serif;
   text-transform: : uppercase;
   outline: 0;
@@ -108,7 +108,7 @@ div.nav a:hover:not(.current) {
   cursor: pointer;
 }
 
-.form button:hover, .form button:active{
+.form .button:hover, .form .button:active{
   background: #43a047;
 }
 
