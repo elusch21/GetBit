@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>CoinConnect</title>
 	<script type="text/javascript">
 		function makeCall(val) {
@@ -41,10 +42,21 @@
 	</script>
 </head>
 <body>
-	<ul id="nav">
-		<li><a class="current" href="index.html" onclick="return false">Homepage</a></li>
-		<li><a href="documentation.html">Documentation</a></li>
-	</ul>
+
+	<!--Standard Nav Bar -->
+	<div class="nav">
+		<a class="current" href="index.html" onclick="return false">Homepage</a>
+		<a href="documentation.html">Documentations</a>
+		<div class="dropdown">
+			<button class="dropbtn">Account</button>
+			<div class="dropdown-content">
+        		<a href="Login.html">Login</a>
+        		<a href="SignUp.html">Sign Up</a>
+      		</div>
+      	</div>
+		<a href="contact.html">Contact Us</a>
+	</div>
+
 
 	<h1>CoinConnect Homepage</h1>
 	<p>Get in touch with your inner high-volatility investor!</p>

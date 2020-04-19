@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Contact Us! - Somerville Bag</title>
+	<style>
+		form {
+			 border-style: dashed;
+				 border-width: 3px;
+				 border-color: black;
+			 background-color: #FC8585
+		}
+	</style>
+	<script type="text/javascript">
+		function validate() {
+			alert("Thank you for your feedback! Your response has been recorded.");
+		}
+	</script>
+</head>
+<body>
+	<!--Standard Nav Bar -->
+	<div class="nav">
+		<a href="index.html">Homepage</a>
+		<a href="documentation.html">Documentations</a>
+		<div class="dropdown">
+			<button class="dropbtn">Account</button>
+			<div class="dropdown-content">
+        		<a href="Login.html">Login</a>
+        		<a href="SignUp.html">Sign Up</a>
+      		</div>
+      	</div>
+		<a class="current" href="contact.html" onclick="return false">Contact Us</a>
+	</div>
+
+	<center><h1>Contact</h1>
+		<h2>CEO: Samuel Saron</h2>
+		<p>BAG alum (2019-2019), Contact for all financial inquiries. <br>
+		<i>617-BAG-BAGG -- samsaron33@bag.com</i></p>
+		<h2>General Manager: Ethan Schreiber</h2>
+		<p>Seattle Frisbee alum, Contact for any concerns regarding tournaments and roster cuts. <br>
+		<i>310-BAG-BAGG -- ethanschreiber21@bag.com</i></p>
+		<h2>Coach: Jerry Wang</h2>
+		<p>Darkwing Ultimate alum, Contact for any inquires regarding tryouts or playing time. <br>
+		<i>781-BAG-BAGG -- jerrywang20@bag.com</i></p>
+		<h2>Captain: Qijin Chau</h2>
+		<p>Villen Ultimate alum, Contact for any concerns regarding tournaments and roster cuts. <br>
+		<i>857-BAG-BAGG -- qijinchau80@bag.com</i></p>
+
+		<form onsubmit="return validate()">
+			<p>We want to hear from you! Any concerns? <br>
+			<select id="concern" name="concern" size=1><br><br>
+				<option>Field Space</option>
+				<option>Tryouts</option>
+				<option>Leadership</option>
+				<option>Other</option>
+			</select><br><br>
+			Please explain your concern :D <br>
+			<textarea id="concern" rows="10" cols="50"></textarea><br>
+			<input type="submit" value="Submit">
+		</form>
+	</center>
+</body>
+</html>
