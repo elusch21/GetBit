@@ -5,12 +5,12 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>CoinConnect</title>
 	<script type="text/javascript">
-		function makeCall(val) {
+		function makeCall(val, period) {
 			//make request object
 			request = new XMLHttpRequest();
 
 			//set url for request
-			request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols="+val, true);
+			request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols="+val+"&timePeriod="+period, true);
 
 			//set up event handler
 			request.onreadystatechange = function() {
@@ -19,9 +19,28 @@
 					//alert(request.responseText);
 					result = request.responseText;
 					//document.getElementById("rawdata").innerHTML = "Raw JSON: " + result;
+
+					// Ethan's code below: (commented out rn by Jerry bc testing mine)
+					// obj = JSON.parse(result);
+					// str = "Name: " + obj.data.coins[0].name + ", Current Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2);
+					// document.getElementById("data").innerHTML = str;
+
 					obj = JSON.parse(result);
-					str = "Name: " + obj.data.coins[0].name + ", Current Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2);
+					
+					var history = "Hourly Price History in the past " + period + " (ascending chronological order):"  + "<br>";
+
+					for (var i = 0; i < 27; i++) {
+						history += "$" + parseFloat(obj["data"]["coins"][0]["history"][i]).toFixed(2) + "<br>";
+					}
+
+					str = "Coin Name: " + obj["data"]["coins"][0]["name"] + "<br>" + "<br>" + 
+							 "Coin Symbol: " + obj["data"]["coins"][0]["symbol"] + "<br>" + "<br>" + 
+							 "Description: " + obj["data"]["coins"][0]["description"] + "<br>" + "<br>" +
+							 "Current Price (USD): $" + parseFloat(obj["data"]["coins"][0]["price"]).toFixed(2) + "<br>" + "<br>" + 
+							 history;
+
 					document.getElementById("data").innerHTML = str;
+
 
 				} else if (request.readyState == 4) {
 					//failed request, handle it
@@ -29,6 +48,9 @@
 					//incomplete request, handle it
 					if (document.getElementById("symbol").value == "") {
 						alert("Please Enter a Symbol");
+					// below code makes the button not work if included
+					// if (document.getElementById("price_hist").value == "") {
+					// 	alert("Please Enter a Price History");
 					} else {
 						alert("No Coin Corresponding to Symbol " + "'" +
 						document.getElementById("symbol").value + "'");
@@ -61,7 +83,8 @@
 	<h1>CoinConnect Homepage</h1>
 	<p>Get in touch with your inner high-volatility investor!</p>
 	<p>Type a symbol here (eg BTC, ETH)<input type="text" id="symbol" name="symbol" value=""><br></p>
-	<button onclick="makeCall(document.getElementById('symbol').value)">Click Me to get data!</button>
+	<p>Type desired price history(eg 24h, 7d, 30d)<input type="text" id="price_hist" name="price_hist" value="24h"><br></p>
+	<button onclick="makeCall(document.getElementById('symbol').value, document.getElementById('price_hist').value)">Click Me to get data!</button>
 	<p id="rawdata"></p>
 	<p id="data"></p>
 	<p>Disclaimer: We take no responsibility for the money gained or lost due to information obtained from this service.</p>
