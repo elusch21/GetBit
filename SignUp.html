@@ -34,23 +34,23 @@
 			<form class="register-form" method="get" action="http://localhost:8080">
 				<input type="text" name="fullname" placeholder="Full Name"/>
 				<input type="text" name="username" placeholder="Username"/>
-				<input type="password" name="password" placeholder="Password"/> 
-				<input class="button" type='submit' value='Create'>  
+				<input type="password" name="password" placeholder="Password"/>
+				<input type="button" onclick="validate()" value="Create">
 				<p class="message"> Already a member? <a href="Login.html">Login</a> </p>
 			</form>
 		</div>
 	</div>
 
 	<script language = "javascript">
-		document.forms[0].onsubmit = function() {validate()};
+		//document.forms[0].onsubmit = function() {validate()};
 		function validate() {
 			var fullnameLength = document.getElementsByName("fullname")[0].value.length;
 			var usernameLength = document.getElementsByName("username")[0].value.length;
 			var passwordLength = document.getElementsByName("password")[0].value.length;
-			if(fullnameLength == 0 || usernameLength == 0 || passwordLength == 0)
+			if (fullnameLength == 0 || usernameLength == 0 || passwordLength == 0)
 				alert("All fields need to be filled in!");
-			else 
-				alert("Good");
+			else
+				document.forms[0].submit();
 		}
 	</script>
 
