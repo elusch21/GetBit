@@ -46,15 +46,7 @@
 					//failed request, handle it
 				} else if (request.readyState == 3) {
 					//incomplete request, handle it
-					if (document.getElementById("symbol").value == "") {
-						alert("Please Enter a Symbol");
-					// below code makes the button not work if included
-					// if (document.getElementById("price_hist").value == "") {
-					// 	alert("Please Enter a Price History");
-					} else {
-						alert("No Coin Corresponding to Symbol " + "'" +
-						document.getElementById("symbol").value + "'");
-					}
+					document.getElementById("data").innerHTML = "Request Processing...";
 				}
 			}
 
