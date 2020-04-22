@@ -12,6 +12,7 @@
   padding: 14px 16px;
   text-decoration: none;
 }
+
 .current {
 	background-color: #D00000;
 }
@@ -78,7 +79,7 @@ div.nav a:hover:not(.current) {
   z-index: 1;
   background: rgba(7, 40, 195, 0.8);
   max-width: 360px;
-  margin: 0 auto 100px;
+  margin: 0 auto 10px;
   padding: 45px;
   text-align: center;
 }
@@ -127,3 +128,36 @@ div.nav a:hover:not(.current) {
   text-decoration: none;
 }
 
+/* BITCOIN TABLE RULES */
+.bitcoin-table{
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 25px;
+  min-width: 600px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.bitcoin-table thead tr{
+  background-color: #ffae1a; 
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.bitcoin-table th, .bitcoin-table td{
+  padding: 12px 15px;
+} 
+
+.bitcoin-table tbody tr{
+  border-bottom: 1.5px solid #dddddd
+}
+
+.bitcoin-table tbody tr:nth-of-type(even){
+  background-color: #f3f3f3;
+}
+
+.bitcoin-table tbody tr:last-of-type{
+  border-bottom: 2px solid #ffae1a;
+}

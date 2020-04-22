@@ -14,7 +14,7 @@
             width: 50%;
         }
         .column2 {
-            float: left;
+            float: right;
             width: 50%;
         }
     </style>
@@ -35,8 +35,42 @@
 	</div>
     <div class="column1">
         <h1>Welcome Back, USER</h1>
-        <h2 id="date"></h2>
-        <p>API calls and allat</p>
+        <h3 id="date"></h3>
+<!-- BitCoin Table -->
+        <table class="bitcoin-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Symbol</th>
+                    <th>Last Price</th>
+                    <th>Market Cap</th>
+                    <th>24h Change</th>     
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Hi</td>
+                    <td>$5</td>
+                    <td>200</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Hi</td>
+                    <td>$5</td>
+                    <td>200</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Hi</td>
+                    <td>$5</td>
+                    <td>200</td>
+                    <td>Yes</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 <!-- Insert Coin Form -->
     <div class="column2">
@@ -49,6 +83,15 @@
     			</form>
     		</div>
     	</div>
+        <div class="account-pages">
+            <div class="form">
+                <form>
+                    <p style="color: white;">Delete coin from tracking</p>
+                    <input type="text" name="coin" placeholder="eg. BTC"/>
+                    <input type="button" onclick="submit()" value='REMOVE'>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript">
@@ -65,5 +108,33 @@
         document.getElementById("date").innerHTML = message;
     </script>
 
+    <script type="text/javascript">
+        function makeCall() {
+            request = new XMLHttpRequest();
+            request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols=BTC&timePeriod=24h", true);
+
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    var result = request.responseText;
+                    var obj = JSON.parse(result);
+                    var str = "Name: " + obj.data.coins[0].name + "\n" 
+                            + "Symbol: " + obj.data.coins[0].symbol + "\n" 
+                            + "Last Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2) 
+                            + "\n" + "Market Cap: $" + parseFloat(obj.data.coins[0].marketCap) 
+                            + "\n" + "24h Change: $" + parseFloat(obj.data.coins[0].change);
+
+                    alert(str);
+                } else if (request.readyState == 4) {
+                    //failed request, handle it
+                } else if (request.readyState == 3) {
+                    //incomplete request, handle it
+                    document.getElementById("data").innerHTML = "Request Processing...";
+                }
+            }
+            request.send();
+        }
+    </script>
+
+    <button onclick="makeCall()">TEST</button>
 </body>
 </html>
