@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-// insert mongodb access link here --> const uri = 
+const uri = ;
 var http = require('http');
 var url = require('url');
 
