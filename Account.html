@@ -69,6 +69,41 @@
                     <td>200</td>
                     <td>Yes</td>
                 </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Hi</td>
+                    <td>$5</td>
+                    <td>200</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Hi</td>
+                    <td>$5</td>
+                    <td>200</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Hi</td>
+                    <td>$5</td>
+                    <td>200</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Hi</td>
+                    <td>$5</td>
+                    <td>200</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Hi</td>
+                    <td>$5</td>
+                    <td>200</td>
+                    <td>Yes</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -106,13 +141,12 @@
 
         var message = "Your Coins as of " + month + "/" + day + "/" + year;
         document.getElementById("date").innerHTML = message;
-    </script>
-
-    <script type="text/javascript">
+    
+        
         function makeCall(val) {
             request = new XMLHttpRequest();
             request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols=" 
-                + val + "&timePeriod=24h", true);
+                                + val + "&timePeriod=24h", true);
 
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
@@ -121,8 +155,8 @@
                     var str = "Name: " + obj.data.coins[0].name + "\n" 
                             + "Symbol: " + obj.data.coins[0].symbol + "\n" 
                             + "Last Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2) 
-                            + "\n" + "24h Change: $" + parseFloat(obj.data.coins[0].change);
-                            + "\n" + "Rank: " + parseFloat(obj.data.coins[0].rank) 
+                            + "\n" + "24h Change: $" + parseFloat(obj.data.coins[0].change)
+                            + "\n" + "Rank: " + parseFloat(obj.data.coins[0].rank);
 
                     alert(str);
                 } else if (request.readyState == 4) {
