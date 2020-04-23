@@ -130,20 +130,19 @@
     </div>
 
     <script type="text/javascript">
-        function submit() {
-            // if symbol is found from API, add it to user mongo
-            // else alert "coin not found"
-        }
         var date = new Date();
         var month = date.getMonth() + 1;
         var day = date.getDate();
         var year = date.getFullYear();
-
         var message = "Your Coins as of " + month + "/" + day + "/" + year;
         document.getElementById("date").innerHTML = message;
-    
+
+        function submit() {
+            // if symbol is found from API, add it to user mongo
+            // else alert "coin not found"
+        }
         
-        function makeCall(val) {
+        function makeAPICall(val) {
             request = new XMLHttpRequest();
 
             // concatenate the url to make the api call
@@ -171,7 +170,6 @@
 
                     alert(str);
                     */
-
                     for(j=0; j<val.length; j++) {
                         document.getElementById("name"+j).innerHTML = obj.data.coins[j].name;
                         document.getElementById("sym"+j).innerHTML = obj.data.coins[j].symbol;
@@ -179,11 +177,8 @@
                         document.getElementById("price"+j).innerHTML = temp;
                         document.getElementById("change"+j).innerHTML = obj.data.coins[j].change + "%";
                         document.getElementById("rank"+j).innerHTML = obj.data.coins[j].rank;
-
-                        //if(parseFloat(obj.data.coins[j].change) > 0) {
-                        //    document.getElementById("change"+j).style.color = "#32CD32";
-                        //}
                     }
+                    
                     for(k=val.length; k<8; k++) {
                         document.getElementById("name"+k).innerHTML = "empty";
                         document.getElementById("sym"+k).innerHTML = "empty";
@@ -191,7 +186,6 @@
                         document.getElementById("change"+k).innerHTML = "empty";
                         document.getElementById("rank"+k).innerHTML = "empty"; 
                     } 
-
                 } else if (request.readyState == 4) {
                     //failed request, handle it
                 } else if (request.readyState == 3) {
@@ -201,13 +195,37 @@
             }
             request.send();
         }
+        
+        // adding color
+        function colorize() {
+            for(m=0; m<8; m++) {
+                if(document.getElementById("name"+m).innerHTML == "empty") {
+                    document.getElementById("name"+m).style.color = "#808080";
+                    document.getElementById("sym"+m).style.color = "#808080";
+                    document.getElementById("price"+m).style.color = "#808080";
+                    document.getElementById("change"+m).style.color = "#808080";
+                    document.getElementById("rank"+m).style.color = "#808080";
+                } else {
+                    document.getElementById("name"+m).style.color = "#000000";
+                    document.getElementById("sym"+m).style.color = "#000000";
+                    document.getElementById("price"+m).style.color = "#000000";
+                    document.getElementById("change"+m).style.color = "#000000";
+                    document.getElementById("rank"+m).style.color = "#000000";
+                }
+                if(parseFloat(document.getElementById("change"+m).innerHTML) > 0)
+                    document.getElementById("change"+m).style.color = "#32CD32";
+                else if(parseFloat(document.getElementById("change"+m).innerHTML) < 0)
+                    document.getElementById("change"+m).style.color = "#ff0000";
+            }
+        }
 
+        // test arrays
         var tempArr1 = new Array();
         tempArr1.push('TRX');
         tempArr1.push('BTC');
         tempArr1.push('BCH');
 
-        makeCall(tempArr1);
+        makeAPICall(tempArr1);
 
         // getting rid of one 
         var tempArr2 = new Array();
@@ -220,7 +238,9 @@
         tempArr3.push('PAX');
         tempArr3.push('LINK');
     </script>
-    <button onclick="makeCall(tempArr2)">Delete BCH</button>
-    <button onclick="makeCall(tempArr3)">New Set</button>
+    <!-- Test Buttons -->
+    <button onclick="makeAPICall(tempArr2)">Delete BCH</button>
+    <button onclick="makeAPICall(tempArr3)">New Set</button>
+    <button onclick="colorize()">Add Color</button>
 </body>
 </html>
