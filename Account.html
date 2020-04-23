@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-	<title>Account</title>
+    <title>Account</title>
     <style>
         p {
             font-size: 20px;
@@ -15,24 +15,24 @@
         }
         .column2 {
             float: right;
-            width: 50%;
+             width: 50%;
         }
     </style>
 </head>
 <body>
 <!--Standard Nav Bar -->
-	<div class="nav">
-		<a href="index.html">Homepage</a>
-		<a href="documentation.html">Documentations</a>
-		<div class="dropdown">
-			<button class="dropbtn">Account</button>
-			<div class="dropdown-content">
-        		<a href="Login.html">Login</a>
-        		<a href="SignUp.html">Sign Up</a>
-      		</div>
-      	</div>
-		<a href="contact.html">Contact Us</a>
-	</div>
+    <div class="nav">
+        <a href="index.html">Homepage</a>
+        <a href="documentation.html">Documentations</a>
+        <div class="dropdown">
+            <button class="dropbtn">Account</button>
+            <div class="dropdown-content">
+                <a href="Login.html">Login</a>
+                <a href="SignUp.html">Sign Up</a>
+            </div>
+        </div>
+        <a href="contact.html">Contact Us</a>
+    </div>
     <div class="column1">
         <h1>Welcome Back, USER</h1>
         <h3 id="date"></h3>
@@ -43,8 +43,8 @@
                     <th>Name</th>
                     <th>Symbol</th>
                     <th>Last Price</th>
-                    <th>Market Cap</th>
-                    <th>24h Change</th>     
+                    <th>24h Change</th>
+                    <th>Rank</th>     
                 </tr>
             </thead>
             <tbody>
@@ -74,15 +74,15 @@
     </div>
 <!-- Insert Coin Form -->
     <div class="column2">
-    	<div class="account-pages">
-    		<div class="form">
-    			<form>
+        <div class="account-pages">
+            <div class="form">
+                <form>
                     <p style="color: white;">Add a coin to keep track of</p>
-    				<input type="text" name="coin" placeholder="eg. BTC"/>
-    				<input type="button" onclick="submit()" value='ADD'>
-    			</form>
-    		</div>
-    	</div>
+                    <input type="text" name="coin" placeholder="eg. BTC"/>
+                    <input type="button" onclick="submit()" value='ADD'>
+                </form>
+            </div>
+        </div>
         <div class="account-pages">
             <div class="form">
                 <form>
@@ -109,9 +109,10 @@
     </script>
 
     <script type="text/javascript">
-        function makeCall() {
+        function makeCall(val) {
             request = new XMLHttpRequest();
-            request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols=BTC&timePeriod=24h", true);
+            request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols=" 
+                + val + "&timePeriod=24h", true);
 
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
@@ -120,8 +121,8 @@
                     var str = "Name: " + obj.data.coins[0].name + "\n" 
                             + "Symbol: " + obj.data.coins[0].symbol + "\n" 
                             + "Last Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2) 
-                            + "\n" + "Market Cap: $" + parseFloat(obj.data.coins[0].marketCap) 
                             + "\n" + "24h Change: $" + parseFloat(obj.data.coins[0].change);
+                            + "\n" + "Rank: " + parseFloat(obj.data.coins[0].rank) 
 
                     alert(str);
                 } else if (request.readyState == 4) {
@@ -135,6 +136,6 @@
         }
     </script>
 
-    <button onclick="makeCall()">TEST</button>
+    <button onclick="makeCall('BTC')">TEST</button>
 </body>
 </html>
