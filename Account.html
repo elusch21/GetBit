@@ -44,7 +44,7 @@
                     <th>Symbol</th>
                     <th>Last Price</th>
                     <th>24h Change</th>
-                    <th>Rank</th>     
+                    <th>Rank</th>
                 </tr>
             </thead>
             <tbody>
@@ -107,6 +107,7 @@
             </tbody>
         </table>
     </div>
+
 <!-- Insert Coin Form -->
     <div class="column2">
         <div class="account-pages">
@@ -141,23 +142,21 @@
 
         var message = "Your Coins as of " + month + "/" + day + "/" + year;
         document.getElementById("date").innerHTML = message;
-    
-        
+
         function makeCall(val) {
             request = new XMLHttpRequest();
-            request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols=" 
+            request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols="
                                 + val + "&timePeriod=24h", true);
 
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
                     var result = request.responseText;
                     var obj = JSON.parse(result);
-                    var str = "Name: " + obj.data.coins[0].name + "\n" 
-                            + "Symbol: " + obj.data.coins[0].symbol + "\n" 
-                            + "Last Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2) 
+                    var str = "Name: " + obj.data.coins[0].name + "\n"
+                            + "Symbol: " + obj.data.coins[0].symbol + "\n"
+                            + "Last Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2)
                             + "\n" + "24h Change: $" + parseFloat(obj.data.coins[0].change)
                             + "\n" + "Rank: " + parseFloat(obj.data.coins[0].rank);
-
                     alert(str);
                 } else if (request.readyState == 4) {
                     //failed request, handle it
