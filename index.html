@@ -3,6 +3,128 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+		.module {
+		  background: 
+		    linear-gradient(
+		      rgba(0, 0, 0, 0.4),
+		      rgba(0, 0, 0, 0.4)
+		    ),
+		    url(background.jpg);
+		  background-size: cover;
+		  width: 100%;
+		  height: 600px;
+		  position: relative;
+		  text-align: center;
+		}
+
+		.mid h2 {
+		  font-family: 'Roboto', sans-serif;
+		  font-weight: 900;
+		  color: white;
+		  text-transform: uppercase;
+		  margin: 0;
+		  position: absolute;
+		  top: 25%;
+		  left: 50%;
+		  font-size: 4rem;
+		  transform: translate(-50%, -50%);
+		}
+
+		.mid p {
+		  font-family: 'Roboto', sans-serif;
+		  font-weight: 900;
+		  color: white;
+		  text-transform: uppercase;
+		  margin: 0;
+		  position: absolute;
+		  top: 50%;
+		  left: 50%;
+		  font-size: 2rem;
+		  transform: translate(-50%, -50%);
+		}
+
+		div.demo {
+		    display: table;
+		    width: 100%;
+		    table-layout: fixed;    /* For cells of equal size */
+		}
+		div.demo span {
+		    display: table-cell;
+		    border: solid;
+		    border-color: white;
+		    text-align: center;
+		    height: 100px;
+		    background-color: #000000;
+		    vertical-align: middle;
+		    font-size: 3vw;
+		    font-weight: bold;
+		    color: #FFFFFF;
+		}
+
+		div.demo span:hover { 
+			background-color: #FF0000; 
+		}
+
+		div.info {
+			background-color: azure;
+			font-size: 2vw;
+			border: solid;
+			border-color: black;
+		}
+
+		.X{
+		  margin: auto;
+		  padding: 1% 2%;
+		  max-width: 1440px;
+		  border-radius: 5px;
+		  background: #ecf0f1;
+		  box-shadow: 0 2px 6px 0 rgba(0,0,0, .3);
+		}
+		h1,h2,h3{
+		  text-align: center;
+		  font-family: 'Baloo Tamma', cursive;
+		}
+		li{
+		  color: #2c3e50;
+		  font-size: 18px;
+		  line-height: 30px;
+		  text-align: justify;
+		  letter-spacing: 1px;
+		  font-family: 'Raleway', serif;
+		}
+
+		.SG{
+		  margin: 0;
+		  padding: 0;
+		  text-align: center;
+		}
+		.SG .sgLi{
+		  min-width: 100%;
+		  margin: 2% .35%;
+		  display: inline-flex;
+		  box-shadow: 0 2px 4px rgba(0,0,0, .2);
+		}
+		.SG .box{
+		  width: 100%;
+		  height: 100vh;
+		  padding: 1% 2%;
+		  background: #fff;
+		  min-height: 200px;
+		  max-height: 220px;
+		  box-sizing: border-box;
+		}
+
+		.df{list-style-type: disc;}
+
+		/* responsive grid*/
+		@media (max-width: 970px){
+		  .SG .sgLi{width: 180px;}}
+		@media (max-width: 425px){
+		  .SG .sgLi{width: 100%;}
+		}
+	</style>
+
 	<title>CoinConnect</title>
 	<script type="text/javascript">
 		function makeCall(val, period) {
@@ -27,11 +149,14 @@
 
 					obj = JSON.parse(result);
 					
-					var history = "Hourly Price History in the past " + period + " (ascending chronological order):"  + "<br>";
+					var history = "Price 24 hours ago: $" + parseFloat(obj["data"]["coins"][0]["history"][0]).toFixed(2) + "<br>";
 
-					for (var i = 0; i < 27; i++) {
-						history += "$" + parseFloat(obj["data"]["coins"][0]["history"][i]).toFixed(2) + "<br>";
-					}
+
+					// var history = "Hourly Price History in the past " + period + " (ascending chronological order):"  + "<br>";
+
+					// for (var i = 0; i < 27; i++) {
+					// 	history += "$" + parseFloat(obj["data"]["coins"][0]["history"][i]).toFixed(2) + "<br>";
+					// }
 
 					str = "Coin Name: " + obj["data"]["coins"][0]["name"] + "<br>" + "<br>" + 
 							 "Coin Symbol: " + obj["data"]["coins"][0]["symbol"] + "<br>" + "<br>" + 
@@ -53,6 +178,7 @@
 			//send request
 			request.send();
 		}
+
 	</script>
 </head>
 <body>
@@ -71,19 +197,54 @@
 		<a href="contact.html">Contact Us</a>
 	</div>
 
+	<div class="module mid">
+	  <h2>CoinConnect</h2>
+	  <p>Track your Crypto Portfolio now!</p>
+	</div>
 
-	<h1>CoinConnect Homepage</h1>
-	<p>Get in touch with your inner high-volatility investor!</p>
-	<p>Type a symbol here (eg BTC, ETH)<input type="text" id="symbol" name="symbol" value=""><br></p>
-	<p>Type desired price history(eg 24h, 7d, 30d)<input type="text" id="price_hist" name="price_hist" value="24h"><br></p>
-	<button onclick="makeCall(document.getElementById('symbol').value, document.getElementById('price_hist').value)">Click Me to get data!</button>
-	<p id="rawdata"></p>
-	<p id="data"></p>
-	<p>Disclaimer: We take no responsibility for the money gained or lost due to information obtained from this service.</p>
+<!-- 	  <div class="myBox">
+		  blah blah blah.
+		  <a href="http://google.com">link</a>
+	  </div> -->
+
+	 <div class="demo">
+	    <span id="myspan1" onclick="makeCall('BTC', '24h')">Bitcoin</span>
+	    <span id="myspan2" onclick="makeCall('ETH', '24h')">Ethereum</span>
+	    <span id="myspan3" onclick="makeCall('XRP', '24h')">XRP</span>
+	    <span id="myspan4" onclick="makeCall('USDT', '24h')">Tether</span>
+	</div>
+
+	<!-- <p>Type a symbol here (eg BTC, ETH)<input type="text" id="symbol" name="symbol" value=""><br></p>
+	<p>Type desired price history(eg 24h, 7d, 30d)<input type="text" id="price_hist" name="price_hist" value="24h"><br></p> -->
+<!-- 	<button onclick="makeCall(document.getElementById('symbol').value, document.getElementById('price_hist').value)">Click Me to get data!</button> -->
+	<div class="info">
+		<center>
+			<p> Click Above to Learn More! </p>
+			<p id="data"></p>
+		</center>
+	</div>
+
+		<div class="X">
+			<ul class="SG">
+			  <li class="sgLi">
+			    <div class="box">
+			    <h3>Sign up now to earn the following features!</h3>
+			    <ul class="df">
+			    <li>Keep a portfolio of up to 8 different coins and track your portfolio worth.</li>
+			    <li>Have access to learn and track 25,000 different coins in our database.</li>
+			    <li>Access to more data on each coin. eg: price history up to a month, coin volume, market cap, and more!</li>
+			    <li>Add another feature here.</li>
+			    </ul> 
+			  </div>
+			 </li> 
+			</ul>
+		</div>
+
+<!-- 	<p>Disclaimer: We take no responsibility for the money gained or lost due to information obtained from this service.</p>
 	<p><b>Notes:</b></p>
 	<p>Database: MongoDB - linked somehow</p>
 	<p>Server side code: Node.js?</a></p>
 	<p>Group Members: Ethan Schreiber, Qijin Chau, Sam Saron, Jerry Wang</p>
-	<p>thx for stopping by :) also pls don't hack us</p>
+	<p>thx for stopping by :) also pls don't hack us</p> -->
 </body>
 </html>
