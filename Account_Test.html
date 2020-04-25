@@ -15,8 +15,16 @@
         }
         .column2 {
             float: right;
-             width: 50%;
+            width: 50%;
         }
+        
+        /* Button Colors */
+        .form .btn1 { background-color: #ffae1a; cursor: pointer;}
+        .form .btn1:hover, .form .btn1:active { background-color: #ffc04c; }
+        .form .btn2 { background-color: #228B22; cursor: pointer;}
+        .form .btn2:hover, .form .btn2:active { background-color: #32CD32; }
+        .form .btn3 { background-color: #ff3232; cursor: pointer;}
+        .form .btn3:hover, .form .btn3:active { background-color: #ff6666; }
     </style>
 </head>
 <body>
@@ -33,6 +41,7 @@
         </div>
         <a href="contact.html">Contact Us</a>
     </div>
+<!-- Top of Page -->
     <div class="column1">
         <h1>Welcome Back, USER</h1>
         <h3 id="date"></h3>
@@ -107,29 +116,32 @@
             </tbody>
         </table>
     </div>
-<!-- Insert Coin Form -->
+<!-- Search Coin Form -->
     <div class="column2">
         <div class="account-pages">
             <div class="form">
                 <form>
-                    <p style="color: white;">Add a coin to keep track of</p>
-                    <input type="text" name="coin" placeholder="eg. BTC"/>
-                    <input type="button" onclick="submit()" value='ADD'>
+                    <p style="color: white;">Search a coin</p>
+                    <input type="text" id="s_coin" placeholder="eg. BTC"/>
+                    <input class="btn1" type="button" onclick="search()" value='SEARCH'>
                 </form>
             </div>
         </div>
+<!-- Insert/Delete Coin Form -->
         <div class="account-pages">
             <div class="form">
                 <form>
-                    <p style="color: white;">Delete coin from tracking</p>
-                    <input type="text" name="coin" placeholder="eg. BTC"/>
-                    <input type="button" onclick="submit()" value='REMOVE'>
+                    <p style="color: white;">Add or Remove a coin</p>
+                    <input type="text" id="coin" placeholder="eg. BTC"/>
+                    <input class="btn2" type="button" onclick="add()" value='ADD'>
+                    <input class="btn3" type="button" onclick="remove()" value='REMOVE'>
                 </form>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
+        // get current date
         var date = new Date();
         var month = date.getMonth() + 1;
         var day = date.getDate();
@@ -137,17 +149,51 @@
         var message = "Your Coins as of " + month + "/" + day + "/" + year;
         document.getElementById("date").innerHTML = message;
 
-        function submit() {
-            // if symbol is found from API, add it to user mongo
-            // else alert "coin not found"
+        // add coin to database
+        function add() {
+            alert("add");
         }
         
+        // remove coin from database
+        function remove() {
+            alert("remove");
+        }
+        
+        // search for specific coin with API call
+        function search() {
+            request = new XMLHttpRequest();
+            var coin = document.getElementById('s_coin').value;
+            request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols="
+                                + coin + "&timePeriod=24h", true);
+
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    var result = request.responseText;
+                    var obj = JSON.parse(result);
+                    var str = "Name: " + obj.data.coins[0].name + "\n" 
+                            + "Symbol: " + obj.data.coins[0].symbol + "\n" 
+                            + "Last Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2) 
+                            + "\n" + "24h Change: $" + parseFloat(obj.data.coins[0].change)
+                            + "\n" + "Rank: " + parseFloat(obj.data.coins[0].rank);
+                    alert(str);
+                } else if (request.readyState == 4) {
+                    //failed request, handle it
+                } else if (request.readyState == 3) {
+                    //incomplete request, handle it
+                    document.getElementById("data").innerHTML = "Request Processing...";
+                }
+            }
+            request.send();
+        }
+
+        // populate table with coins currently being tracked using API call
         function makeAPICall(val) {
             request = new XMLHttpRequest();
 
-            // concatenate the url to make the api call
-            // parameter val will be an array of BitCoins and
-            // will be added to the url and separated by commas
+            /* concatenate the url to make the api call
+             * parameter val will be an array of BitCoins and
+             * will be added to the url and separated by commas
+             */
             var apiString = "https://api.coinranking.com/v1/public/coins?base=USD&symbols=";
             for(i=0; i<val.length; i++) {
                 apiString += val[i];
@@ -161,15 +207,7 @@
                 if (request.readyState == 4 && request.status == 200) {
                     var result = request.responseText;
                     var obj = JSON.parse(result);
-                    /*
-                    var str = "Name: " + obj.data.coins[0].name + "\n" 
-                            + "Symbol: " + obj.data.coins[0].symbol + "\n" 
-                            + "Last Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2) 
-                            + "\n" + "24h Change: $" + parseFloat(obj.data.coins[0].change)
-                            + "\n" + "Rank: " + parseFloat(obj.data.coins[0].rank);
-
-                    alert(str);
-                    */
+                
                     for(j=0; j<val.length; j++) {
                         document.getElementById("name"+j).innerHTML = obj.data.coins[j].name;
                         document.getElementById("sym"+j).innerHTML = obj.data.coins[j].symbol;
@@ -178,7 +216,6 @@
                         document.getElementById("change"+j).innerHTML = obj.data.coins[j].change + "%";
                         document.getElementById("rank"+j).innerHTML = obj.data.coins[j].rank;
                     }
-                    
                     for(k=val.length; k<8; k++) {
                         document.getElementById("name"+k).innerHTML = "empty";
                         document.getElementById("sym"+k).innerHTML = "empty";
