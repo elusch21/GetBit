@@ -60,6 +60,7 @@
 		    font-size: 3vw;
 		    font-weight: bold;
 		    color: #FFFFFF;
+		    cursor: pointer;
 		}
 
 		div.demo span:hover { 
@@ -116,6 +117,16 @@
 		}
 
 		.df{list-style-type: disc;}
+
+		/* Sign Up button styling */
+		.signup_button{
+			color: #0080ff;
+			cursor: pointer;
+		}
+		
+		.signup_button:hover, .signup_button:active{
+			color: #38eeff;
+		}
 
 		/* responsive grid*/
 		@media (max-width: 970px){
@@ -228,7 +239,10 @@
 			<ul class="SG">
 			  <li class="sgLi">
 			    <div class="box">
-			    <h3>Sign up now to earn the following features!</h3>
+			    <h3>
+			    	<a class="signup_button" href="SignUp.html">Sign Up</a> 
+			    	now to earn the following features!
+			    </h3>
 			    <ul class="df">
 			    <li>Keep a portfolio of up to 8 different coins and track your portfolio worth.</li>
 			    <li>Have access to learn and track 25,000 different coins in our database.</li>
