@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://QSEJ:Emen2020!@cluster0-wdjde.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://QSEJ:Comp20Final@cluster0-wdjde.mongodb.net/test?retryWrites=true&w=majority";
 var http = require('http');
 var url = require('url');
 
