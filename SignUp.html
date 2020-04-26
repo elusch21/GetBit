@@ -31,7 +31,8 @@
 <!-- Sign Up Form -->
 	<div class="account-pages">
 		<div class="form">
-			<form class="register-form" method="get" action="http://localhost:8080">
+			<form class="register-form" method="get" action="https://get-bit.herokuapp.com/">
+				<input type="hidden" name="op" value="new"> <!--designate new user operation-->
 				<input type="text" name="fullname" placeholder="Full Name"/>
 				<input type="text" name="username" placeholder="Username"/>
 				<input type="password" name="password" placeholder="Password"/>

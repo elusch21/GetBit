@@ -1,0 +1,19 @@
+{
+  "name": "get-bit",
+  "version": "1.0.0",
+  "description": "GetBit!",
+  "main": "NodeServer.js",
+  "scripts": {
+  "start": "node NodeServer.js"
+},
+  "repository": {
+  "type": "git",
+  "url": ""
+},
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+  "url": ""
+},
+  "homepage": ""
+}
