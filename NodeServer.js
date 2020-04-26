@@ -5,6 +5,8 @@ var url = require('url');
 
 var port = process.env.PORT || 3000; //heroku stuff
 
+console.log("hosted on port " + port);
+
 /*README!!!! This is our Server. It has defined inputs and outputs.
 inputs should come on the query string.
 op: string. "new" for new user, "login" for login, "add" for add coin.
@@ -13,6 +15,7 @@ just do a form submit basically
 eg: www.<our-url>.com/?op=new&fullname=admin&username=test&password=<sha512encryptedpass>*/
 
 http.createServer(function (req, res) {
+	console.log("Here!");
 	//parse url, decide operation
 	var qobj = url.parse(req.url, true).query;
 	var op = qobj.op;
