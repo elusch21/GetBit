@@ -92,14 +92,14 @@ http.createServer(function (req, res) {
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=unthinkable'});
 		    	} else {
 		    		console.log("Building string, coins.length: "+ result[0]["Coins"].length);
-		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password;// +'&coins=[';
-		    		/*for(i = 0; i < result[0]["Coins"].length; i++) {
+		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
+		    		for(i = 0; i < result[0]["Coins"].length; i++) {
 		    			string += "'"+result[0]["Coins"][i]+"'";
 		    			if(i < result[0]["Coins"].length-1) {
 		    				string += ", ";
 		    			}
 		    		}
-		    		string += ']';*/
+		    		string += ']';
 		    		console.log(string);
 		    		db.close();
 		    		res.writeHead(301,{'Location': string});
