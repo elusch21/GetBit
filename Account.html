@@ -17,7 +17,7 @@
             float: right;
             width: 50%;
         }
-        
+
         /* Button Colors */
         .form .btn1 { background-color: #ffae1a; cursor: pointer;}
         .form .btn1:hover, .form .btn1:active { background-color: #ffc04c; }
@@ -53,7 +53,7 @@
                     <th>Symbol</th>
                     <th>Last Price</th>
                     <th>24h Change</th>
-                    <th>Rank</th>     
+                    <th>Rank</th>
                 </tr>
             </thead>
             <tbody>
@@ -132,8 +132,10 @@
             <div class="form" method="get" action="https://get-bit.herokuapp.com/">
                 <form>
                     <p style="color: white;">Add or Remove a coin</p>
+                    <input type="hidden" name="username" id="username" value="<=Request.QueryString("username")%>"/>
+                    <input type="hidden" name="password" id="password" value="<=Request.QueryString("password")%>"/>
                     <input type="text" name="coin" id="coin" placeholder="eg. BTC"/>
-                    <input class="btn2" type="button" onclick="add()" value='ADD'>
+                    <input class="btn2" type="button" name = "ADD" onclick="submitForm()" value='ADD'>
                     <input class="btn3" type="button" onclick="remove()" value='REMOVE'>
                 </form>
             </div>
@@ -153,12 +155,12 @@
         function add() {
             alert("add");
         }
-        
+
         // remove coin from database
         function remove() {
             alert("remove");
         }
-        
+
         // search for specific coin with API call
         function search() {
             request = new XMLHttpRequest();
@@ -170,16 +172,16 @@
                 if (request.readyState == 4 && request.status == 200) {
                     var result = request.responseText;
                     var obj = JSON.parse(result);
-                    var str = "Name: " + obj.data.coins[0].name + "\n" 
-                            + "Symbol: " + obj.data.coins[0].symbol + "\n" 
-                            + "Last Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2) 
+                    var str = "Name: " + obj.data.coins[0].name + "\n"
+                            + "Symbol: " + obj.data.coins[0].symbol + "\n"
+                            + "Last Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2)
                             + "\n" + "24h Change: $" + parseFloat(obj.data.coins[0].change)
                             + "\n" + "Rank: " + parseFloat(obj.data.coins[0].rank);
                     alert(str);
                 } else if (request.readyState == 4) {
                     //failed request, handle it
                 } else if (request.readyState == 3) {
-                    alert('"' + coin + '"' + " not found");
+                    //alert('"' + coin + '"' + " not found");
                 }
             }
             request.send();
@@ -197,7 +199,7 @@
             for(i=0; i<val.length; i++) {
                 apiString += val[i];
                 if(i != val.length-1)
-                    apiString += ",";  
+                    apiString += ",";
             }
             apiString += "&timePeriod=24h";
             request.open("GET", apiString, true);
@@ -206,7 +208,7 @@
                 if (request.readyState == 4 && request.status == 200) {
                     var result = request.responseText;
                     var obj = JSON.parse(result);
-                
+
                     for(j=0; j<val.length; j++) {
                         document.getElementById("name"+j).innerHTML = obj.data.coins[j].name;
                         document.getElementById("sym"+j).innerHTML = obj.data.coins[j].symbol;
@@ -220,8 +222,8 @@
                         document.getElementById("sym"+k).innerHTML = "empty";
                         document.getElementById("price"+k).innerHTML = "empty";
                         document.getElementById("change"+k).innerHTML = "empty";
-                        document.getElementById("rank"+k).innerHTML = "empty"; 
-                    } 
+                        document.getElementById("rank"+k).innerHTML = "empty";
+                    }
                     colorize();
                 } else if (request.readyState == 4) {
                     //failed request, handle it
@@ -232,7 +234,7 @@
             }
             request.send();
         }
-        
+
         // adding color
         function colorize() {
             for(m=0; m<8; m++) {
@@ -264,7 +266,7 @@
 
         makeAPICall(tempArr1);
 
-        // getting rid of one 
+        // getting rid of one
         var tempArr2 = new Array();
         tempArr2.push('TRX');
         tempArr2.push('BTC');
