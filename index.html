@@ -133,6 +133,65 @@
 		@media (max-width: 425px){
 		  .SG .sgLi{width: 100%;}
 		}
+
+		.container {
+		  width:900px; 
+		  height: 175px;
+		  padding: 50px;
+		  display:none;
+		}
+
+		.first-box {
+		  width:300px; 
+		  float:left; 
+		  background: azure;
+		  border: solid;
+		  border-color: black; 
+		  height: 175px;
+		  margin: 50px
+		  text: center;
+		  box-shadow: 0 2px 4px rgba(0,0,0, .2);
+		  border-radius: 15px;
+		}
+
+		.first-box p {
+		  color: #000000;
+/*		  padding-left: 80px;
+		  padding-top: 50px;*/
+		  text-align: center;
+		}
+
+		.second-box {
+		  width:300px; 
+		  height: 175px; 
+		  border: solid;
+		  border-color: black; 
+		  float:right; 
+		  background: azure;
+		  margin: 50px
+		  text: center;
+		  box-shadow: 0 2px 4px rgba(0,0,0, .2);
+		  border-radius: 15px;
+		}
+
+		.second-box p {
+		  color: #000000;
+		  text-align: center;
+/*		  padding-left: 110px;
+		  padding-top: 50px;*/
+		}
+
+		.Y{
+		  margin: auto;
+		  padding: 1% 2%;
+		  margin: 50px;
+		  max-width: 1440px;
+		  border-radius: 5px;
+		  background: #ecf0f1;
+		  box-shadow: 0 2px 6px 0 rgba(0,0,0, .3);
+		  display: none;
+		}
+
 	</style>
 
 	<title>CoinConnect</title>
@@ -142,7 +201,7 @@
 			request = new XMLHttpRequest();
 
 			//set url for request
-			request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols="+val+"&timePeriod="+period, true);
+			request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&rank=1&timePeriod="+period, true);
 
 			//set up event handler
 			request.onreadystatechange = function() {
@@ -150,45 +209,48 @@
 					//successful request, use data
 					//alert(request.responseText);
 					result = request.responseText;
-					//document.getElementById("rawdata").innerHTML = "Raw JSON: " + result;
-
-					// Ethan's code below: (commented out rn by Jerry bc testing mine)
-					// obj = JSON.parse(result);
-					// str = "Name: " + obj.data.coins[0].name + ", Current Price (USD): $" + parseFloat(obj.data.coins[0].price).toFixed(2);
-					// document.getElementById("data").innerHTML = str;
 
 					obj = JSON.parse(result);
 					
-					var history = "Price 24 hours ago: $" + parseFloat(obj["data"]["coins"][0]["history"][0]).toFixed(2) + "<br>";
+					var history = ("Price 24 hours ago: ".bold()).fontsize("5") + "<br>"+ "<br>"+ "$".fontsize("7") + (parseFloat(obj["data"]["coins"][val]["history"][0]).toFixed(2).toString()).fontsize("7") + "<br>";
 
+					str1 = ("Coin Name: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["name"].fontsize("7");
+					str2 = ("Coin Symbol: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["symbol"].fontsize("7"); 
+					str3 = ("Rank: ".bold()).fontsize("5") + "<br>" + "<br>" + (obj["data"]["coins"][val]["rank"].toString()).fontsize("7");
+					str4 = ("Description: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["description"];
+					str5 = ("Current Price (USD): ".bold()).fontsize("5") + "<br>" + "<br>" + "$".fontsize("7")+(parseFloat(obj["data"]["coins"][val]["price"]).toFixed(2).toString()).fontsize("7");
 
-					// var history = "Hourly Price History in the past " + period + " (ascending chronological order):"  + "<br>";
+					// str = "Coin Name: " + obj["data"]["coins"][val]["name"] + "<br>" + "<br>" + 
+					// 		 "Coin Symbol: " + obj["data"]["coins"][val]["symbol"] + "<br>" + "<br>" + 
+					// 		 "Rank: " + obj["data"]["coins"][val]["rank"] + "<br>" + "<br>" + 
+					// 		 "Description: " + obj["data"]["coins"][val]["description"] + "<br>" + "<br>" +
+					// 		 "Current Price (USD): $" + parseFloat(obj["data"]["coins"][val]["price"]).toFixed(2) + "<br>" + "<br>" + history;
 
-					// for (var i = 0; i < 27; i++) {
-					// 	history += "$" + parseFloat(obj["data"]["coins"][0]["history"][i]).toFixed(2) + "<br>";
-					// }
+					document.getElementById("1").style.display = "block";
+					document.getElementById("2").style.display = "block";
+					document.getElementById("3").style.display = "block";
+					document.getElementById("4").style.display = "block";
 
-					str = "Coin Name: " + obj["data"]["coins"][0]["name"] + "<br>" + "<br>" + 
-							 "Coin Symbol: " + obj["data"]["coins"][0]["symbol"] + "<br>" + "<br>" + 
-							 "Description: " + obj["data"]["coins"][0]["description"] + "<br>" + "<br>" +
-							 "Current Price (USD): $" + parseFloat(obj["data"]["coins"][0]["price"]).toFixed(2) + "<br>" + "<br>" + 
-							 history;
+					document.getElementById("name").innerHTML = str1;
+					document.getElementById("sym").innerHTML = str2;
+					document.getElementById("rank").innerHTML = str3;
+					document.getElementById("desc").innerHTML = str4;
+					document.getElementById("price").innerHTML = str5;
+					document.getElementById("p_hist").innerHTML = history;
 
-					document.getElementById("data").innerHTML = str;
-
+					// document.getElementById("data").innerHTML = str;
 
 				} else if (request.readyState == 4) {
 					//failed request, handle it
 				} else if (request.readyState == 3) {
 					//incomplete request, handle it
-					document.getElementById("data").innerHTML = "Request Processing...";
+					document.getElementById("name").innerHTML = "Request Processing...";
 				}
 			}
 
 			//send request
 			request.send();
 		}
-
 	</script>
 </head>
 <body>
@@ -218,10 +280,12 @@
 	  </div> -->
 
 	 <div class="demo">
-	    <span id="myspan1" onclick="makeCall('BTC', '24h')">Bitcoin</span>
-	    <span id="myspan2" onclick="makeCall('ETH', '24h')">Ethereum</span>
-	    <span id="myspan3" onclick="makeCall('XRP', '24h')">XRP</span>
-	    <span id="myspan4" onclick="makeCall('USDT', '24h')">Tether</span>
+	    <span id="myspan1" onclick="makeCall(0, '24h')">Rank 1</span>
+	    <span id="myspan2" onclick="makeCall(1, '24h')">Rank 2</span>
+	    <span id="myspan3" onclick="makeCall(2, '24h')">Rank 3</span>
+	    <span id="myspan4" onclick="makeCall(3, '24h')">Rank 4</span>
+	    <span id="myspan5" onclick="makeCall(4, '24h')">Rank 5</span>
+	    <span id="myspan6" onclick="makeCall(5, '24h')">Rank 6</span>
 	</div>
 
 	<!-- <p>Type a symbol here (eg BTC, ETH)<input type="text" id="symbol" name="symbol" value=""><br></p>
@@ -229,10 +293,45 @@
 <!-- 	<button onclick="makeCall(document.getElementById('symbol').value, document.getElementById('price_hist').value)">Click Me to get data!</button> -->
 	<div class="info">
 		<center>
-			<p> Click Above to Learn More! </p>
-			<p id="data"></p>
+			<p> Click above to learn more about the top 6 Cryptocurrencies! </p>
 		</center>
 	</div>
+
+<div class="Y" id="4">
+<center>
+	<div class="container" id="1">
+		 <div class="first-box">
+		    <p id="name"></p>
+		  </div>
+
+		  <div class="second-box">
+		    <p id="sym"></p>
+		  </div>
+	</div>
+
+		<div class="container" id="2">
+		 <div class="first-box">
+		    <p id="rank"></p>
+		  </div>
+
+		  <div class="second-box">
+		    <p id="desc"></p>
+		  </div>
+	</div>
+
+		<div class="container" id="3">
+		 <div class="first-box">
+		    <p id="price"></p>
+		  </div>
+
+		  <div class="second-box">
+		    <p id="p_hist"></p>
+		  </div>
+	</div>
+</center>
+</div>
+
+
 
 		<div class="X">
 			<ul class="SG">
@@ -253,11 +352,5 @@
 			</ul>
 		</div>
 
-<!-- 	<p>Disclaimer: We take no responsibility for the money gained or lost due to information obtained from this service.</p>
-	<p><b>Notes:</b></p>
-	<p>Database: MongoDB - linked somehow</p>
-	<p>Server side code: Node.js?</a></p>
-	<p>Group Members: Ethan Schreiber, Qijin Chau, Sam Saron, Jerry Wang</p>
-	<p>thx for stopping by :) also pls don't hack us</p> -->
 </body>
 </html>
