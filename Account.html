@@ -138,8 +138,8 @@
             <div class="form">
                 <form id=add_remove method="get" action="https://get-bit.herokuapp.com/">
                     <p style="color: white;">Add or Remove a coin</p>
-                    <input type="hidden" name="username" id="username" value="getUrlParameter(username)"/>
-                    <input type="hidden" name="password" id="password" value="getUrlParameter(password)"/>
+                    <input type="hidden" name="username" id="username"/>
+                    <input type="hidden" name="password" id="password"/>
                     <input type="text" name="coin" id="coin" placeholder="eg. BTC"/>
                     <input class="btn2" type="button" name="add" id="add" onclick="addCoin()" value='ADD'>
                     <input class="btn3" type="button" name="remove" id="remove" onclick="removeCoin()" value='REMOVE'>
@@ -173,6 +173,8 @@
                 alert("Please enter coin to add");
             } else {
                 document.getElementById("op").value = "add";
+                document.getElementById("username").value = getUrlParameter(username);
+                document.getElementById("password").value = getUrlParameter(password);
                 document.getElementById("add_remove").submit();
                 alert("" + coin + " succesfully added");
             }
