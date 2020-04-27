@@ -15,11 +15,12 @@ just do a form submit basically
 eg: www.<our-url>.com/?op=new&fullname=admin&username=test&password=<sha512encryptedpass>*/
 
 http.createServer(function (req, res) {
-	console.log("Here!");
 	//parse url, decide operation
 	var qobj = url.parse(req.url, true).query;
 	var op = qobj.op;
 	var fullname = qobj.fullname, username = qobj.username, password = qobj.password, coin = qobj.coin;
+
+	//MAIN CONTROL FLOW: DECISION BASED ON OP PARAMETER//
 	if (op == "new") {
 		/*INSERTION INTO MONGO
 		input: username, hashed password
@@ -28,7 +29,7 @@ http.createServer(function (req, res) {
 			reason - if success false, is a string holding reason, else null
 			coins - empty array of coins for js purposes*/
 		//code here
-		var myObj = { "Full Name": fullname, "Username": username, "Password": password};
+		var myObj = { "Full Name": fullname, "Username": username, "Password": password, "Coins": []};
 		MongoClient.connect(uri, function(err, db) {
 			if (err) {
 				//failure
@@ -85,18 +86,21 @@ http.createServer(function (req, res) {
 		    	//	db.close();
 		    	//	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&coins='});
 		    	//	res.end();
+		    	} else if (result.length > 1) {
+		    		//should never get here, this means we have two users with same user and pass lol
+		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=unthinkable'});
 		    	} else {
-		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&coins=asdgsda';
-		    		string += 'test';
-		    		string += result[0]["Coins"].length;
-		    		for(i=0; i<result[0]["Coins"].length; i++) {
-		    			string += result[0]["Coins"][i];
+		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
+		    		for(i = 0; i < result[0]["Coins"].length; i++) {
+		    			string += "'"+result[0]["Coins"][i]+"'";
 		    			if(i < result[0]["Coins"].length-1) {
-		    				string += ",";
+		    				string += ", ";
 		    			}
 		    		}
+		    		string += ']';
+		    		console.log(string);
 		    		db.close();
-		    		res.writeHead(301,{'Location': string});
+		    		res.writeHead(301,{'Location': "'"+string+"'"});
 		    		res.end();
 		    	}
 		  	});
