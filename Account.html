@@ -129,11 +129,11 @@
         </div>
 <!-- Insert/Delete Coin Form -->
         <div class="account-pages">
-            <div class="form" method="get" action="https://get-bit.herokuapp.com/">
-                <form id=add_remove>
+            <div class="form">
+                <form id=add_remove method="get" action="https://get-bit.herokuapp.com/">
                     <p style="color: white;">Add or Remove a coin</p>
-                    <input type="hidden" name="username" id="username" value=""/>
-                    <input type="hidden" name="password" id="password" value=""/>
+                    <input type="hidden" name="username" id="username" value="USERNAME FROM QUERY"/>
+                    <input type="hidden" name="password" id="password" value="PASSWORD FROM QUERY"/>
                     <input type="text" name="coin" id="coin" placeholder="eg. BTC"/>
                     <input class="btn2" type="button" name="add" id="add" onclick="addCoin()" value='ADD'>
                     <input class="btn3" type="button" name="remove" id="remove" onclick="removeCoin()" value='REMOVE'>
@@ -159,7 +159,7 @@
                 alert("Please enter coin to add");
             } else {
                 document.getElementById("op").value = "add";
-                document.getElementById("add_remove").submit;
+                document.getElementById("add_remove").submit();
                 alert("" + coin + " succesfully added");
             }
         }
@@ -171,7 +171,7 @@
                 alert("Please enter coin to remove");
             } else {
                 document.getElementById("op").value = "remove";
-                document.getElementById("add_remove").submit;
+                document.getElementById("add_remove").submit();
                 alert("" + coin + " succesfully removed");
             }
         }
