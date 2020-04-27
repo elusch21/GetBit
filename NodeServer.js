@@ -96,7 +96,7 @@ http.createServer(function (req, res) {
 		    			}
 		    		}
 		    		db.close();
-		    		res.writeHead(301,{'Location': string});
+		    		res.writeHead(301,{'Location': 'https://elusch21.github.io/GetBit/Account.html?success=true&coins=asdgsda'});
 		    		res.end();
 		    	}
 		  	});
