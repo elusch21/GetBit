@@ -86,7 +86,7 @@ http.createServer(function (req, res) {
 		    	//	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&coins='});
 		    	//	res.end();
 		    	} else {
-		    		var string = "https://elusch21.github.io/GetBit/Account.html?success=true&coins="
+		    		var string = "https://elusch21.github.io/GetBit/Account.html?success=true&coins=";
 		    		for(i=0; i<result[0]["Coins"].length; i++) {
 		    			string += result[0]["Coins"][i];
 		    			if(i < result[0]["Coins"].length-1) {
