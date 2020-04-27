@@ -46,7 +46,7 @@ http.createServer(function (req, res) {
 
 	        	console.log("New User Created");
 	        	db.close();
-	        	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password});
+	        	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true'});
 	        	//res.writeHead(301, {'Location':'C:/Users/Ethan/OneDrive/MyDocuments/1Tufts/Soph/Sem2/Comp20/GetBit/Account.html/?success=true'});
 	        	res.end();
     		});
