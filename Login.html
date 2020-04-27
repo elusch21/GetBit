@@ -22,7 +22,8 @@
 <!-- Login Form -->
 	<div class="account-pages">
 		<div class="form">
-			<form class="login-form">
+			<form class="login-form" method="get" action="https://get-bit.herokuapp.com/">
+				<input type="hidden" name="op" value="login"> <!--designate login operation-->
 				<input type="text" name="username" placeholder="Username"/>
 				<input type="password" name="password" placeholder="Password"/>
 				<input class="button" type='submit' value='Login'>  
