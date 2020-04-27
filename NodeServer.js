@@ -28,7 +28,7 @@ http.createServer(function (req, res) {
 			reason - if success false, is a string holding reason, else null
 			coins - empty array of coins for js purposes*/
 		//code here
-		var myObj = { "Full Name": fullname, "Username": username, "Password": password, "Coins": };
+		var myObj = { "Full Name": fullname, "Username": username, "Password": password};
 		MongoClient.connect(uri, function(err, db) {
 			if (err) {
 				//failure
