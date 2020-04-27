@@ -100,7 +100,7 @@ http.createServer(function (req, res) {
 		    		string += ']';
 		    		console.log(string);
 		    		db.close();
-		    		res.writeHead(301,{'Location': "'"+string+"'"});
+		    		res.writeHead(301,{'Location': string});
 		    		res.end();
 		    	}
 		  	});
