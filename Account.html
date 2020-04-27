@@ -9,14 +9,18 @@
             font-size: 20px;
             color: black;
         }
-        .column1 {
-            float: left;
-            width: 50%;
+
+        .column {
+        float: left;
+        width: 50%;
         }
-        .column2 {
-            float: right;
-            width: 50%;
+
+        @media screen and (max-width: 1100px) {
+            .column {
+                width: 100%;
+            }
         }
+
 
         /* Button Colors */
         .form .btn1 { background-color: #ffae1a; cursor: pointer;}
@@ -42,10 +46,11 @@
         <a href="contact.html">Contact Us</a>
     </div>
 <!-- Top of Page -->
-    <div class="column1">
+    <div class="column">
         <h1>Welcome Back, USER</h1>
         <h3 id="date"></h3>
 <!-- BitCoin Table -->
+        <center>
         <table class="bitcoin-table">
             <thead>
                 <tr>
@@ -115,9 +120,10 @@
                 </tr>
             </tbody>
         </table>
+    </center>
     </div>
 <!-- Search Coin Form -->
-    <div class="column2">
+    <div class="column">
         <div class="account-pages">
             <div class="form">
                 <form>
