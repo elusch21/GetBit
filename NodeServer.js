@@ -106,7 +106,7 @@ http.createServer(function (req, res) {
 			success - string/boolean: 'true' if successful authentication, 'false' otherwise
 			reason - if success false, is a string holding reason, else null
 			coins - array of all coins that successfully authenticated user has tracked*/
-		/*
+		
 		var myObj = { "Username": username, "Password": password };
 		MongoClient.connect(uri, function(err, db) {
 			if (err) {
@@ -125,12 +125,18 @@ http.createServer(function (req, res) {
 			   	dbo.collection("User_Info").update(
 				   myObj,   // Query parameter
 				   { $push: { Coins: coin } }
-				)
+				);
+				var string = "https://elusch21.github.io/GetBit/Account.html?success=true&coins="
+		    	for(i=0; i<result[0]["Coins"].length; i++) {
+		    		string += result[0]["Coins"][i];
+		    		if(i < result[0]["Coins"].length-1) {
+		    			string += ",";
+		    		}
+		    	}
 			   	db.close();
-			   	//res.writeHead(301,{'Location': string});
+			   	res.writeHead(301,{'Location': string});
 			   	res.end();
 			});
 		});
-		*/
 	}
 }).listen(port);
