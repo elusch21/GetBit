@@ -80,11 +80,11 @@ http.createServer(function (req, res) {
 		    		db.close();
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=login_fail'});
 		    		res.end();
-		    	} else if(result[0]["Coins"] == undefined) {
-		    		console.log(result[0]["Coins"]);
-		    		db.close();
-		    		res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&coins='});
-		    		res.end();
+		    	//} else if(result[0]["Coins"] == undefined) {
+		    	//	console.log(result[0]["Coins"]);
+		    	//	db.close();
+		    	//	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&coins='});
+		    	//	res.end();
 		    	} else {
 		    		var string = "https://elusch21.github.io/GetBit/Account.html?success=true&coins="
 		    		for(i=0; i<result[0]["Coins"].length; i++) {
