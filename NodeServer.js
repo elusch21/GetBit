@@ -37,16 +37,16 @@ http.createServer(function (req, res) {
 			}
 	   		// access database called "GetBit"
 	    	var dbo = db.db("GetBit");
-	    	// insert entry in the MongoDB database w/ collection called "User_Info"  
+	    	// insert entry in the MongoDB database w/ collection called "User_Info"
 			dbo.collection("User_Info").insertOne(myObj, function(err, resp) {
 	        	if (err) {
 	        		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=insert_fail'});
 	        		throw err;
 	        	}
-	        
+
 	        	console.log("New User Created");
 	        	db.close();
-	        	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true'});
+	        	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password});
 	        	//res.writeHead(301, {'Location':'C:/Users/Ethan/OneDrive/MyDocuments/1Tufts/Soph/Sem2/Comp20/GetBit/Account.html/?success=true'});
 	        	res.end();
     		});
@@ -58,7 +58,7 @@ http.createServer(function (req, res) {
 			success - string/boolean: 'true' if successful authentication, 'false' otherwise
 			reason - if success false, is a string holding reason, else null
 			coins - array of all coins that successfully authenticated user has tracked*/
-		
+
 		var myObj = { "Username": username, "Password": password };
 		MongoClient.connect(uri, function(err, db) {
 			if (err) {
@@ -69,13 +69,13 @@ http.createServer(function (req, res) {
 	   		// access database called "GetBit"
 	    	var dbo = db.db("GetBit");
 
-	    	// find user in the MongoDB database w/ collection called "User_Info"  
+	    	// find user in the MongoDB database w/ collection called "User_Info"
 	    	dbo.collection("User_Info").find(myObj).toArray(function(err, result) {
 		    	if (err) {
-		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'}); 
+		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
 		    		throw err;
 		    	}
-		    	
+
 		    	if(result.length == 0) {
 		    		db.close();
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=login_fail'});
@@ -101,7 +101,7 @@ http.createServer(function (req, res) {
 		    	}
 		  	});
 		});
-		
+
 	} else if (op == "add") {
 		/*ADD COIN
 		input: username, hashed password
@@ -109,7 +109,7 @@ http.createServer(function (req, res) {
 			success - string/boolean: 'true' if successful authentication, 'false' otherwise
 			reason - if success false, is a string holding reason, else null
 			coins - array of all coins that successfully authenticated user has tracked*/
-		
+
 		/*
 		var myObj = { "Username": username, "Password": password };
 		MongoClient.connect(uri, function(err, db) {
@@ -121,9 +121,9 @@ http.createServer(function (req, res) {
 		   	// access database called "GetBit"
 		    var dbo = db.db("GetBit");
 
-		    // find user in the MongoDB database w/ collection called "User_Info"  
+		    // find user in the MongoDB database w/ collection called "User_Info"
 		    dbo.collection("User_Info").find(myObj).toArray(function(err, result) {
-			   	if (err) 
+			   	if (err)
 			   		throw err;
 
 			   	dbo.collection("User_Info").update(
