@@ -76,7 +76,8 @@ http.createServer(function (req, res) {
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
 		    		throw err;
 		    	}
-
+		    	console.log("connection finished");
+		    	console.log(result.length + " results");
 		    	if(result.length == 0) {
 		    		db.close();
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=login_fail'});
@@ -90,6 +91,7 @@ http.createServer(function (req, res) {
 		    		//should never get here, this means we have two users with same user and pass lol
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=unthinkable'});
 		    	} else {
+		    		console.log("Building string, coins.length: "+ result[0]["Coins"].length);
 		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
 		    		for(i = 0; i < result[0]["Coins"].length; i++) {
 		    			string += "'"+result[0]["Coins"][i]+"'";
