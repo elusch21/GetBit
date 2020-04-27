@@ -71,8 +71,10 @@ http.createServer(function (req, res) {
 
 	    	// find user in the MongoDB database w/ collection called "User_Info"  
 	    	dbo.collection("User_Info").find(myObj).toArray(function(err, result) {
-		    	if (err) 
+		    	if (err) {
+		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'}); 
 		    		throw err;
+		    	}
 		    	
 		    	if(result.length == 0) {
 		    		db.close();
