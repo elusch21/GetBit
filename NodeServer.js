@@ -36,21 +36,21 @@ http.createServer(function (req, res) {
 				res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/SignUp.html?success=false&reason=connect_fail'});
 				throw err;
 			}
-	   		// access database called "GetBit"
-	    	var dbo = db.db("GetBit");
-	    	// insert entry in the MongoDB database w/ collection called "User_Info"
+			// access database called "GetBit"
+			var dbo = db.db("GetBit");
+			// insert entry in the MongoDB database w/ collection called "User_Info"
 			dbo.collection("User_Info").insertOne(myObj, function(err, resp) {
-	        	if (err) {
-	        		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/SignUp.html?success=false&reason=insert_fail'});
-	        		throw err;
-	        	}
+				if (err) {
+					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/SignUp.html?success=false&reason=insert_fail'});
+					throw err;
+				}
 
-	        	console.log("New User Created");
-	        	db.close();
-	        	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password});
-	        	//res.writeHead(301, {'Location':'C:/Users/Ethan/OneDrive/MyDocuments/1Tufts/Soph/Sem2/Comp20/GetBit/Account.html/?success=true'});
-	        	res.end();
-    		});
+				console.log("New User Created");
+				db.close();
+				res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password});
+				//res.writeHead(301, {'Location':'C:/Users/Ethan/OneDrive/MyDocuments/1Tufts/Soph/Sem2/Comp20/GetBit/Account.html/?success=true'});
+				res.end();
+			});
 		});
 	} else if (op == "login") {
 		/*LOG IN REQUEST
@@ -67,54 +67,54 @@ http.createServer(function (req, res) {
 				res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=connect_fail'});
 				throw err;
 			}
-	   		// access database called "GetBit"
-	    	var dbo = db.db("GetBit");
+			// access database called "GetBit"
+			var dbo = db.db("GetBit");
 
-	    	// find user in the MongoDB database w/ collection called "User_Info"
-	    	dbo.collection("User_Info").find(myObj).toArray(function(err, result) {
-		    	if (err) {
-		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=connect_fail'});
-		    		throw err;
-		    	}
-		    	console.log("connection finished");
-		    	console.log(result.length + " results");
-		    	
-		    	// No users
-		    	if(result.length == 0) {
-		    		db.close();
-		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=login_fail'});
-		    		res.end();
-		    	} else {
-		    		var flag = 0, index;
-		    		for(i=0; i<result.length; i++) {
-		    			if(result[i]["Password"] == password) {
-		    				flag = 1;
-		    				index = i;
-		    			}
-		    		}
-		    		// If wrong Password
-		    		if(flag == 0) {
-		    			db.close();
-		    			res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=wrong_pass'});
-		    			res.end();
-		    		// If correct Password
-		    		} else {
-			    		console.log("Building string, coins.length: "+ result[index]["Coins"].length);
-			    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
-			    		for(i = 0; i < result[index]["Coins"].length; i++) {
-			    			string += "'"+result[index]["Coins"][i]+"'";
-			    			if(i < result[index]["Coins"].length-1) {
-			    				string += ", ";
-			    			}
-			    		}
-			    		string += ']';
-			    		console.log(string);
-			    		db.close();
-			    		res.writeHead(301,{'Location': string});
-			    		res.end();
-		    		}
-		    	}
-		  	});
+			// find user in the MongoDB database w/ collection called "User_Info"
+			dbo.collection("User_Info").find(myObj).toArray(function(err, result) {
+				if (err) {
+					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=connect_fail'});
+					throw err;
+				}
+				console.log("connection finished");
+				console.log(result.length + " results");
+				
+				// No users
+				if(result.length == 0) {
+					db.close();
+					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=login_fail'});
+					res.end();
+				} else {
+					var flag = 0, index;
+					for(i=0; i<result.length; i++) {
+						if(result[i]["Password"] == password) {
+							flag = 1;
+							index = i;
+						}
+					}
+					// If wrong Password
+					if(flag == 0) {
+						db.close();
+						res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=wrong_pass'});
+						res.end();
+					// If correct Password
+					} else {
+						console.log("Building string, coins.length: "+ result[index]["Coins"].length);
+						var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
+						for(i = 0; i < result[index]["Coins"].length; i++) {
+							string += "'"+result[index]["Coins"][i]+"'";
+							if(i < result[index]["Coins"].length-1) {
+								string += ", ";
+							}
+						}
+						string += ']';
+						console.log(string);
+						db.close();
+						res.writeHead(301,{'Location': string});
+						res.end();
+					}
+				}
+			});
 		});
 
 	} else if (op == "add") {
@@ -127,45 +127,58 @@ http.createServer(function (req, res) {
 
 		var myObj = { "Username": username, "Password": password };
 		MongoClient.connect(uri, function(err, db) {
-			
 			if (err) {
 				//failure
 				res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
-				//throw err;
+				throw err;
 				console.log("connect error");
 			}
-		   	// access database called "GetBit"
-		    var dbo = db.db("GetBit");
+			// access database called "GetBit"
+			var dbo = db.db("GetBit");
 
-		    console.log("connected!");
-		    // find user in the MongoDB database w/ collection called "User_Info"
-		    dbo.collection("User_Info").updateOne(myObj, { $push: { Coins: {$each: [coin]} } }, function(err, result) {
-			   	if (err) {
-		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
-		    		//throw err;
-		    		console.log("update error");
-		    	}
-		    	//if (result.length != 1) { //more than one or 0 results, shouldn't happen but handled just in case
-		    	//	res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=login_fail'});
-		    		//throw err;
-		    	//	console.log("unthinkable?");
-		    	//} else {
-					console.log("Building string, coins.length: "+ result[0]["Coins"].length);
-		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
-		    		for(i = 0; i < result[0]["Coins"].length; i++) {
-		    			string += "'"+result[0]["Coins"][i]+"'";
-		    			if(i < result[0]["Coins"].length-1) {
-		    				string += ", ";
-		    			}
-		    		}
-		    		string += ']';
-		    		console.log(string);
-			   		db.close();
-			   		res.writeHead(301,{'Location': string});
-			   		res.end();
-			    //}
+			console.log("connected!");
+			// update the user's coins in the MongoDB database w/ collection called "User_Info"
+			dbo.collection("User_Info").updateOne(myObj, { $push: { Coins: {$each: [coin]} } }, function(err, resol) {
+				if (err) {
+					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
+					throw err;
+					console.log("update error");
+				} else if (resol.modifiedCount == 1) { // successful update, now need to query user to build return string
+					dbo.collection("User_Info").find(myObj).toArray(function(err, result) {
+						if (err) {
+							res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=connect_fail'});
+							throw err;
+						}
+						
+						if(result.length != 1) {
+							db.close();
+							//unthinkable
+							res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=login_fail'});
+							res.end();
+						} else { //correct path
+							console.log("Building string, coins.length: "+ result[index]["Coins"].length);
+							var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
+							for(i = 0; i < result[0]["Coins"].length; i++) {
+								string += "'"+result[0]["Coins"][i]+"'";
+								if(i < result[0]["Coins"].length-1) {
+									string += ", ";
+								}
+							}
+							string += ']';
+							console.log(string);
+							db.close();
+							res.writeHead(301,{'Location': string});
+							res.end();
+						}
+					});
+				} else {
+					//the unthinkable!
+				}
 			});
 		});
+	} else if () {
+		console.log("Not yet implemented");
+		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=not_implemented&username='+ username + '&password=' + password})
 	} else {
 		//the unthinkable!
 	}
