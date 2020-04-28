@@ -125,7 +125,6 @@ http.createServer(function (req, res) {
 			reason - if success false, is a string holding reason, else null
 			coins - array of all coins that successfully authenticated user has tracked*/
 
-		console.log("add?");
 		var myObj = { "Username": username, "Password": password };
 		MongoClient.connect(uri, function(err, db) {
 			
@@ -140,7 +139,7 @@ http.createServer(function (req, res) {
 
 		    console.log("connected!");
 		    // find user in the MongoDB database w/ collection called "User_Info"
-		    dbo.collection("User_Info").updateOne(myObj, { $push: { Coins: {$each: ['TRX']} } }, function(err, result) {
+		    dbo.collection("User_Info").updateOne(myObj, { $push: { Coins: {$each: [coin]} } }, function(err, result) {
 			   	if (err) {
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
 		    		//throw err;
