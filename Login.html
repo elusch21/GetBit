@@ -32,5 +32,21 @@
 		</div>
 	</div>
 
+	<script type="text/javascript">
+		function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        function loginAlert() {
+        	if(getUrlParameter("success") == "false" && getUrlParameter("reason") == "login_fail") {
+        		alert("No user found. Create an account!");
+        	} else {
+        		alert("test");
+        	}
+        }
+    </script>
 </body>
 </html>

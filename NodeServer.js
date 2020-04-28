@@ -137,11 +137,11 @@ http.createServer(function (req, res) {
 		    		//throw err;
 		    		console.log("update error");
 		    	}
-		    	if (result.length != 1) { //more than one or 0 results, shouldn't happen but handled just in case
-		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=login_fail'});
+		    	//if (result.length != 1) { //more than one or 0 results, shouldn't happen but handled just in case
+		    	//	res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=login_fail'});
 		    		//throw err;
-		    		console.log("unthinkable?");
-		    	} else {
+		    	//	console.log("unthinkable?");
+		    	//} else {
 					console.log("Building string, coins.length: "+ result[0]["Coins"].length);
 		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
 		    		for(i = 0; i < result[0]["Coins"].length; i++) {
@@ -155,7 +155,7 @@ http.createServer(function (req, res) {
 			   		db.close();
 			   		res.writeHead(301,{'Location': string});
 			   		res.end();
-			    }
+			    //}
 			});
 		});
 	} else {
