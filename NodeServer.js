@@ -176,7 +176,7 @@ http.createServer(function (req, res) {
 				}
 			});
 		});
-	} else if () {
+	} else if (op == 'remove') {
 		console.log("Not yet implemented");
 		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=not_implemented&username='+ username + '&password=' + password})
 	} else {
