@@ -47,11 +47,7 @@
     </div>
 <!-- Top of Page -->
     <div class="column">
-<<<<<<< HEAD
         <h1 id="welcome"></h1>
-=======
-        <h1 id="the_user"></h1>
->>>>>>> 3404fbaa6170f7f9e3d39b964279ff2428298e2c
         <h3 id="date"></h3>
 <!-- BitCoin Table -->
         <center>
@@ -162,11 +158,6 @@
         var message = "Your Coins as of " + month + "/" + day + "/" + year;
         document.getElementById("date").innerHTML = message;
         document.getElementById("welcome").innerHTML = "Welcome Back " + getUrlParameter("username") + ",";
-
-        // Update username at top of page
-        var users_name = "Welcome back, ";
-        users_name += getUrlParameter("username");
-        document.getElementById("the_user").innerHTML = users_name;
 
         // get query string
         function getUrlParameter(name) {
