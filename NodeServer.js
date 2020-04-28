@@ -156,7 +156,7 @@ http.createServer(function (req, res) {
 							res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=login_fail'});
 							res.end();
 						} else { //correct path
-							console.log("Building string, coins.length: "+ result[index]["Coins"].length);
+							console.log("Building string, coins.length: "+ result[0]["Coins"].length);
 							var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
 							for(i = 0; i < result[0]["Coins"].length; i++) {
 								string += "'"+result[0]["Coins"][i]+"'";
