@@ -47,7 +47,7 @@
     </div>
 <!-- Top of Page -->
     <div class="column">
-        <h1>Welcome Back, USER</h1>
+        <h1 id="the_user"></h1>
         <h3 id="date"></h3>
 <!-- BitCoin Table -->
         <center>
@@ -165,6 +165,11 @@
             var results = regex.exec(location.search);
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         };
+
+        // Update username at top of page
+        function getUser() {
+            document.getElementById("the_user").value = "Welcome Back, " + getUrlParameter("username");
+        }
 
         // add coin to database
         function addCoin() {
@@ -288,6 +293,10 @@
                     document.getElementById("change"+m).style.color = "#ff0000";
             }
         }
+
+        // Print users name at top of page
+        getUser();
+
 
         // test arrays
         var tempArr1 = new Array();
