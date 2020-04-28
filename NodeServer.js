@@ -87,23 +87,32 @@ http.createServer(function (req, res) {
 		    	//	db.close();
 		    	//	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&coins='});
 		    	//	res.end();
-		    	} else if (result.length == 1 && result[0]["Password"] != password) {
-		    		//should never get here, this means we have two users with same user and pass lol
-		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=wrong_pass'});
 		    	} else {
-		    		console.log("Building string, coins.length: "+ result[0]["Coins"].length);
-		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
-		    		for(i = 0; i < result[0]["Coins"].length; i++) {
-		    			string += "'"+result[0]["Coins"][i]+"'";
-		    			if(i < result[0]["Coins"].length-1) {
-		    				string += ", ";
+		    		var flag = 0;
+		    		for(i=0; i<result.length; i++) {
+		    			if(result[i]["Password"] == password) {
+		    				flag = 1;
 		    			}
 		    		}
-		    		string += ']';
-		    		console.log(string);
-		    		db.close();
-		    		res.writeHead(301,{'Location': string});
-		    		res.end();
+		    		if(flag == 0) {
+		    			db.close();
+		    			res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=wrong_pass'});
+		    			res.end();
+		    		} else {
+			    		console.log("Building string, coins.length: "+ result[0]["Coins"].length);
+			    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
+			    		for(i = 0; i < result[0]["Coins"].length; i++) {
+			    			string += "'"+result[0]["Coins"][i]+"'";
+			    			if(i < result[0]["Coins"].length-1) {
+			    				string += ", ";
+			    			}
+			    		}
+			    		string += ']';
+			    		console.log(string);
+			    		db.close();
+			    		res.writeHead(301,{'Location': string});
+			    		res.end();
+		    		}
 		    	}
 		  	});
 		});
