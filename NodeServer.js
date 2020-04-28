@@ -116,9 +116,10 @@ http.createServer(function (req, res) {
 			reason - if success false, is a string holding reason, else null
 			coins - array of all coins that successfully authenticated user has tracked*/
 
-		
+		console.log("add?");
 		var myObj = { "Username": username, "Password": password };
 		MongoClient.connect(uri, function(err, db) {
+			console.log("connected!");
 			if (err) {
 				//failure
 				res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
@@ -137,7 +138,8 @@ http.createServer(function (req, res) {
 		    	}
 		    	if (result.length != 1) { //more than one or 0 results, shouldn't happen but handled just in case
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=login_fail'});
-		    		throw err;
+		    		//throw err;
+		    		console.log("unthinkable?");
 		    	} else {
 					console.log("Building string, coins.length: "+ result[0]["Coins"].length);
 		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
