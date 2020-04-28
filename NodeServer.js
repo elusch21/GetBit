@@ -122,7 +122,8 @@ http.createServer(function (req, res) {
 			if (err) {
 				//failure
 				res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
-				throw err;
+				//throw err;
+				console.log("connect error");
 			}
 		   	// access database called "GetBit"
 		    var dbo = db.db("GetBit");
@@ -131,7 +132,8 @@ http.createServer(function (req, res) {
 		    dbo.collection("User_Info").update(myObj, { $push: { Coins: coin }}, function(err, result) {
 			   	if (err) {
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
-		    		throw err;
+		    		//throw err;
+		    		console.log("update error");
 		    	}
 		    	if (result.length != 1) { //more than one or 0 results, shouldn't happen but handled just in case
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=login_fail'});
