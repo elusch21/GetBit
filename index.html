@@ -31,6 +31,10 @@
 		  transform: translate(-50%, -50%);
 		}
 
+		@media (max-width: 600px){
+		  .mid h2 {font-size: 3rem;}
+		}
+
 		.mid p {
 		  font-family: 'Roboto', sans-serif;
 		  font-weight: 900;
@@ -38,7 +42,7 @@
 		  text-transform: uppercase;
 		  margin: 0;
 		  position: absolute;
-		  top: 50%;
+		  top: 60%;
 		  left: 50%;
 		  font-size: 2rem;
 		  transform: translate(-50%, -50%);
@@ -127,31 +131,52 @@
 			color: #38eeff;
 		}
 
+		@media (max-width: 686px){
+		  .SG .box{max-height:300px;}
+		}
+
+		@media (max-width: 550px){
+		  .SG .box{max-height:325px;}
+		}
+/*		@media (max-width: 425px){
+		  .SG .box{max-height: 500px;
+		  }
+		}
+		@media (max-width: 425px){
+		  .X{height:400px;}
+		}*/
+
+
+
 		/* responsive grid*/
 		@media (max-width: 970px){
-		  .SG .sgLi{width: 180px;}}
+		  .SG .sgLi{width: 180px;}
+		}
 		@media (max-width: 425px){
 		  .SG .sgLi{width: 100%;}
 		}
 
 		.container {
-		  width:900px; 
-		  height: 175px;
-		  padding: 50px;
-		  display:none;
+		  max-width:1100px; 
+		  height: 375px;
+		  padding: 25px;
+		  display:inline-block;
+/*		  background: blue;*/
 		}
 
 		.first-box {
 		  width:300px; 
-		  float:left; 
+		  /*padding: 50px;*/
 		  background: azure;
 		  border: solid;
+		  border-width: 1px;
 		  border-color: black; 
 		  height: 175px;
-		  margin: 50px
-		  text: center;
+		  margin: 10px;
 		  box-shadow: 0 2px 4px rgba(0,0,0, .2);
 		  border-radius: 15px;
+		  display: inline-block;
+		  text-align: center;
 		}
 
 		.first-box p {
@@ -161,7 +186,7 @@
 		  text-align: center;
 		}
 
-		.second-box {
+/*		.second-box {
 		  width:300px; 
 		  height: 175px; 
 		  border: solid;
@@ -172,24 +197,39 @@
 		  text: center;
 		  box-shadow: 0 2px 4px rgba(0,0,0, .2);
 		  border-radius: 15px;
-		}
+		  display: inline-grid;
+		}*/
 
-		.second-box p {
+/*		.second-box p {
 		  color: #000000;
 		  text-align: center;
-/*		  padding-left: 110px;
-		  padding-top: 50px;*/
-		}
+		  padding-left: 110px;
+		  padding-top: 50px;
+		}*/
 
 		.Y{
 		  margin: auto;
 		  padding: 1% 2%;
-		  margin: 50px;
+		  margin: 50px 0px 50px 0px;
 		  max-width: 1440px;
+		  height: 475px;
+		  width: 85%;
 		  border-radius: 5px;
 		  background: #ecf0f1;
 		  box-shadow: 0 2px 6px 0 rgba(0,0,0, .3);
 		  display: none;
+		}
+
+		@media only screen and (max-width: 1245px) {
+		  .Y {
+		    height: 900px;
+		  } 
+		}
+
+		@media only screen and (max-width: 850px) {
+		  .Y {
+		    height:1260px;
+		  } 
 		}
 
 	</style>
@@ -226,9 +266,11 @@
 					// 		 "Description: " + obj["data"]["coins"][val]["description"] + "<br>" + "<br>" +
 					// 		 "Current Price (USD): $" + parseFloat(obj["data"]["coins"][val]["price"]).toFixed(2) + "<br>" + "<br>" + history;
 
-					document.getElementById("1").style.display = "block";
-					document.getElementById("2").style.display = "block";
-					document.getElementById("3").style.display = "block";
+					// document.getElementById("1").style.display = "block";
+					// document.getElementById("2").style.display = "block";
+					// document.getElementById("3").style.display = "block";
+					// document.getElementById("4").style.display = "block";
+
 					document.getElementById("4").style.display = "block";
 
 					document.getElementById("name").innerHTML = str1;
@@ -254,7 +296,7 @@
 	</script>
 </head>
 <body>
-
+<center>
 <!--Standard Nav Bar -->
 	<div class="nav">
 		<a class="current" href="index.html" onclick="return false">Homepage</a>
@@ -296,8 +338,32 @@
 			<p> Click above to learn more about the top 6 Cryptocurrencies! </p>
 		</center>
 	</div>
-
-<div class="Y" id="4">
+<center>
+	<div class="Y" id="4">
+			<div class="container" id="1">
+				<div class="first-box">
+				    <p id="name"></p>
+				</div>
+				<div class="first-box">
+				    <p id="sym"></p>
+				</div>
+				<div class="first-box">
+				    <p id="rank"></p>
+				</div>
+				<br> <br> 
+				<div class="first-box">
+				    <p id="desc"></p>
+				</div>
+				<div class="first-box">
+				    <p id="price"></p>
+				</div>
+				<div class="first-box">
+				    <p id="p_hist"></p>
+				</div>
+			</div>
+	</div>
+</center>
+<!-- <div class="Y" id="4">
 <center>
 	<div class="container" id="1">
 		 <div class="first-box">
@@ -329,7 +395,7 @@
 		  </div>
 	</div>
 </center>
-</div>
+</div> -->
 
 
 
@@ -345,12 +411,11 @@
 			    <li>Keep a portfolio of up to 8 different coins and track your portfolio worth.</li>
 			    <li>Have access to learn and track 25,000 different coins in our database.</li>
 			    <li>Access to more data on each coin. eg: price history up to a month, coin volume, market cap, and more!</li>
-			    <li>Add another feature here.</li>
 			    </ul> 
 			  </div>
 			 </li> 
 			</ul>
 		</div>
-
+</center>
 </body>
 </html>
