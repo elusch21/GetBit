@@ -47,7 +47,7 @@
     </div>
 <!-- Top of Page -->
     <div class="column">
-        <h1>Welcome Back, USER</h1>
+        <h1 id="welcome"></h1>
         <h3 id="date"></h3>
 <!-- BitCoin Table -->
         <center>
@@ -157,6 +157,7 @@
         var year = date.getFullYear();
         var message = "Your Coins as of " + month + "/" + day + "/" + year;
         document.getElementById("date").innerHTML = message;
+        document.getElementById("welcome").innerHTML = "Welcome Back " + getUrlParameter("username") + ",";
 
         // get query string
         function getUrlParameter(name) {
@@ -187,6 +188,8 @@
                 alert("Please enter coin to remove");
             } else {
                 document.getElementById("op").value = "remove";
+                document.getElementById("username").value = getUrlParameter("username");
+                document.getElementById("password").value = getUrlParameter("password");
                 document.getElementById("add_remove").submit();
                 alert("" + coin + " succesfully removed");
             }
