@@ -88,10 +88,11 @@ http.createServer(function (req, res) {
 		    	//	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&coins='});
 		    	//	res.end();
 		    	} else {
-		    		var flag = 0;
+		    		var flag = 0, index;
 		    		for(i=0; i<result.length; i++) {
 		    			if(result[i]["Password"] == password) {
 		    				flag = 1;
+		    				index = i;
 		    			}
 		    		}
 		    		if(flag == 0) {
@@ -99,11 +100,11 @@ http.createServer(function (req, res) {
 		    			res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=wrong_pass'});
 		    			res.end();
 		    		} else {
-			    		console.log("Building string, coins.length: "+ result[0]["Coins"].length);
+			    		console.log("Building string, coins.length: "+ result[index]["Coins"].length);
 			    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
-			    		for(i = 0; i < result[0]["Coins"].length; i++) {
-			    			string += "'"+result[0]["Coins"][i]+"'";
-			    			if(i < result[0]["Coins"].length-1) {
+			    		for(i = 0; i < result[index]["Coins"].length; i++) {
+			    			string += "'"+result[index]["Coins"][i]+"'";
+			    			if(i < result[index]["Coins"].length-1) {
 			    				string += ", ";
 			    			}
 			    		}

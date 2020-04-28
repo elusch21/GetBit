@@ -26,13 +26,22 @@
 				<input type="hidden" name="op" value="login"> <!--designate login operation-->
 				<input type="text" name="username" placeholder="Username"/>
 				<input type="password" name="password" placeholder="Password"/>
-				<input class="button" type="submit" value="Login">  
+				<input type="button" class="button" onclick="validate()" value="Login">
 				<p class="message"> Not a member? <a href="SignUp.html">Sign Up</a> </p>
 			</form>
 		</div>
 	</div>
 
 	<script type="text/javascript">
+		function validate() {
+			var usernameLength = document.getElementsByName("username")[0].value.length;
+			var passwordLength = document.getElementsByName("password")[0].value.length;
+			if (usernameLength == 0 || passwordLength == 0)
+				alert("All fields need to be filled in!");
+			else
+				document.forms[0].submit();
+		}
+
 		function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
