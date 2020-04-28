@@ -54,13 +54,13 @@ http.createServer(function (req, res) {
 		});
 	} else if (op == "login") {
 		/*LOG IN REQUEST
-		input: username, hashed password
+		input: username
 		output:
 			success - string/boolean: 'true' if successful authentication, 'false' otherwise
 			reason - if success false, is a string holding reason, else null
 			coins - array of all coins that successfully authenticated user has tracked*/
 
-		var myObj = { "Username": username, "Password": password };
+		var myObj = { "Username": username };
 		MongoClient.connect(uri, function(err, db) {
 			if (err) {
 				//failure
@@ -87,9 +87,9 @@ http.createServer(function (req, res) {
 		    	//	db.close();
 		    	//	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&coins='});
 		    	//	res.end();
-		    	} else if (result.length > 1) {
+		    	} else if (result.length == 1 && result[0]["Password"] != password) {
 		    		//should never get here, this means we have two users with same user and pass lol
-		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=unthinkable'});
+		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=wrong_pass'});
 		    	} else {
 		    		console.log("Building string, coins.length: "+ result[0]["Coins"].length);
 		    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';

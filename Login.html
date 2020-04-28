@@ -43,8 +43,9 @@
         function loginAlert() {
         	if(getUrlParameter("success") == "false" && getUrlParameter("reason") == "login_fail") {
         		alert("No user found. Create an account!");
-        	} else {
-        		alert("test");
+        	}
+        	if(getUrlParameter("success") == "false" && getUrlParameter("reason") == "wrong_pass") {
+        		alert("Incorrect Password! Try again!");
         	}
         }
 
