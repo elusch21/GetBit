@@ -119,7 +119,7 @@ http.createServer(function (req, res) {
 		console.log("add?");
 		var myObj = { "Username": username, "Password": password };
 		MongoClient.connect(uri, function(err, db) {
-			console.log("connected!");
+			
 			if (err) {
 				//failure
 				res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
@@ -129,8 +129,9 @@ http.createServer(function (req, res) {
 		   	// access database called "GetBit"
 		    var dbo = db.db("GetBit");
 
+		    console.log("connected!");
 		    // find user in the MongoDB database w/ collection called "User_Info"
-		    dbo.collection("User_Info").update(myObj, { $push: { Coins: coin }}, function(err, result) {
+		    dbo.collection("User_Info").update(myObj, { $push: { Coins: "TRX" }}, function(err, result) {
 			   	if (err) {
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
 		    		//throw err;
