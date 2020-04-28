@@ -78,15 +78,12 @@ http.createServer(function (req, res) {
 		    	}
 		    	console.log("connection finished");
 		    	console.log(result.length + " results");
+		    	
+		    	// No users
 		    	if(result.length == 0) {
 		    		db.close();
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=login_fail'});
 		    		res.end();
-		    	//} else if(result[0]["Coins"] == undefined) {
-		    	//	console.log(result[0]["Coins"]);
-		    	//	db.close();
-		    	//	res.writeHead(301,{'Location':'https://elusch21.github.io/GetBit/Account.html?success=true&coins='});
-		    	//	res.end();
 		    	} else {
 		    		var flag = 0, index;
 		    		for(i=0; i<result.length; i++) {
@@ -95,10 +92,12 @@ http.createServer(function (req, res) {
 		    				index = i;
 		    			}
 		    		}
+		    		// If wrong Password
 		    		if(flag == 0) {
 		    			db.close();
 		    			res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=wrong_pass'});
 		    			res.end();
+		    		// If correct Password
 		    		} else {
 			    		console.log("Building string, coins.length: "+ result[index]["Coins"].length);
 			    		var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
@@ -141,7 +140,7 @@ http.createServer(function (req, res) {
 
 		    console.log("connected!");
 		    // find user in the MongoDB database w/ collection called "User_Info"
-		    dbo.collection("User_Info").update(myObj, { $push: { Coins: {$each: ['TRX']} } }, function(err, result) {
+		    dbo.collection("User_Info").updateOne(myObj, { $push: { Coins: {$each: ['TRX']} } }, function(err, result) {
 			   	if (err) {
 		    		res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=connect_fail'});
 		    		//throw err;
