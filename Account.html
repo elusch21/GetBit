@@ -157,7 +157,8 @@
         var year = date.getFullYear();
         var message = "Your Coins as of " + month + "/" + day + "/" + year;
         document.getElementById("date").innerHTML = message;
-        document.getElementById("welcome").innerHTML = "Welcome Back " + getUrlParameter("username") + ",";
+        document.getElementById("welcome").innerHTML = "Welcome Back " 
+                                                        + getUrlParameter("username") + ",";
 
         // get query string
         function getUrlParameter(name) {
@@ -166,6 +167,15 @@
             var results = regex.exec(location.search);
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         };
+
+        // checking if the the letter is an alphabet letter
+        function isAlpha(inputtxt) {
+            var letters = /^[A-Za-z]+$/;
+            if(inputtxt.match(letters))
+                return true;
+            else
+                return false;
+        }
 
         // add coin to database
         function addCoin() {
@@ -292,27 +302,24 @@
             }
         }
 
-        // test arrays
-        var tempArr1 = new Array();
-        tempArr1.push('TRX');
-        tempArr1.push('BTC');
-        tempArr1.push('BCH');
+        var coinsArr = new Array();
+        var coinsStr = getUrlParameter("coins");
+        
+        
+        for(i=0; i<coinsStr.length; i++) {
+            var tempStr = "";
+            while(isAlpha(coinsStr[i]) == true) {
+                //alert("hi" + i);
+                tempStr += coinsStr[i];
+                i++;
+            }
+            if(tempStr.length != 0) {
+                coinsArr.push(tempStr);
+            }
+        }
+        
+        makeAPICall(coinsArr);
 
-        makeAPICall(tempArr1);
-
-        // getting rid of one
-        var tempArr2 = new Array();
-        tempArr2.push('TRX');
-        tempArr2.push('BTC');
-
-        // whole new set
-        var tempArr3 = new Array();
-        tempArr3.push('ADA');
-        tempArr3.push('PAX');
-        tempArr3.push('LINK');
     </script>
-    <!-- Test Buttons -->
-    <button onclick="makeAPICall(tempArr2)">Delete BCH</button>
-    <button onclick="makeAPICall(tempArr3)">New Set</button>
 </body>
 </html>
