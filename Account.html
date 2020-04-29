@@ -21,7 +21,6 @@
             }
         }
 
-
         /* Button Colors */
         .form .btn1 { background-color: #ffae1a; cursor: pointer;}
         .form .btn1:hover, .form .btn1:active { background-color: #ffc04c; }
@@ -191,7 +190,8 @@
 
         // add coin to database
         function addCoin(arrayOfCoins) {
-            var coin = document.getElementById("coin").value;
+            var coin = toUpperCase(document.getElementById("coin").value);
+            document.getElementById("coin").value = coin;
             if (coin == "") {
                 alert("Please enter coin to add!");
             } else if(arrayOfCoins.length == 8) {
@@ -320,14 +320,12 @@
             }
         }
 
+        // getting coins from query string then making API call to populate table
         var coinsArr = new Array();
         var coinsStr = getUrlParameter("coins");
-        
-        
         for(i=0; i<coinsStr.length; i++) {
             var tempStr = "";
             while(isAlpha(coinsStr[i]) == true) {
-                //alert("hi" + i);
                 tempStr += coinsStr[i];
                 i++;
             }
@@ -335,7 +333,6 @@
                 coinsArr.push(tempStr);
             }
         }
-        
         makeAPICall(coinsArr);
 
     </script>
