@@ -190,12 +190,7 @@
 
         // add coin to database
         function addCoin(arrayOfCoins) {
-            for(i=0; document.getElementById("coin").value.length; i++) {
-                document.getElementById("coin").value[i] = 
-                document.getElementById("coin").value[i].toUpperCase();
-            }
             var coin = document.getElementById("coin").value;
-            //document.getElementById("coin").value = coin;
             if (coin == "") {
                 alert("Please enter coin to add!");
             } else if(arrayOfCoins.length == 8) {
