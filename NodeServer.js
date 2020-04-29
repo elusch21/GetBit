@@ -40,12 +40,12 @@ http.createServer(function (req, res) {
 			var dbo = db.db("GetBit");
 			dbo.collection("User_Info").find(myObj).toArray(function(err, result) {
 				if (err) {
-					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=connect_fail'});
+					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/SignUp.html?success=false&reason=connect_fail'});
 					throw err;
 				}
 				if (result.length != 0) {
 					db.close();
-					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=bad_acct'})
+					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/SignUp.html?success=false&reason=bad_acct'})
 					res.end();
 				} else {
 					var myObj = { "Full Name": fullname, "Username": username, "Password": password, "Coins": []};
@@ -109,7 +109,7 @@ http.createServer(function (req, res) {
 						for(i = 0; i < result[index]["Coins"].length; i++) {
 							string += "'"+result[index]["Coins"][i]+"'";
 							if(i < result[index]["Coins"].length-1) {
-								string += ", ";
+								string += ",";
 							}
 						}
 						string += ']';
