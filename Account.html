@@ -271,12 +271,20 @@
                     var obj = JSON.parse(result);
 
                     for(j=0; j<val.length; j++) {
-                        document.getElementById("name"+j).innerHTML = obj.data.coins[j].name;
-                        document.getElementById("sym"+j).innerHTML = obj.data.coins[j].symbol;
-                        var temp = "$" + parseFloat(obj.data.coins[j].price).toFixed(2);
-                        document.getElementById("price"+j).innerHTML = temp;
-                        document.getElementById("change"+j).innerHTML = obj.data.coins[j].change + "%";
-                        document.getElementById("rank"+j).innerHTML = obj.data.coins[j].rank;
+                        if (obj.data.coins[j] != null) {
+                            document.getElementById("name"+j).innerHTML = obj.data.coins[j].name;
+                            document.getElementById("sym"+j).innerHTML = obj.data.coins[j].symbol;
+                            var temp = "$" + parseFloat(obj.data.coins[j].price).toFixed(2);
+                            document.getElementById("price"+j).innerHTML = temp;
+                            document.getElementById("change"+j).innerHTML = obj.data.coins[j].change + "%";
+                            document.getElementById("rank"+j).innerHTML = obj.data.coins[j].rank;
+                        } else {
+                            document.getElementById("name"+k).innerHTML = "error";
+                            document.getElementById("sym"+k).innerHTML = val[j];
+                            document.getElementById("price"+k).innerHTML = "error";
+                            document.getElementById("change"+k).innerHTML = "error";
+                            document.getElementById("rank"+k).innerHTML = "error";
+                        }
                     }
                     for(k=val.length; k<8; k++) {
                         document.getElementById("name"+k).innerHTML = "empty";
@@ -290,7 +298,7 @@
                     //failed request, handle it
                 } else if (request.readyState == 3) {
                     //incomplete request, handle it
-                    document.getElementById("data").innerHTML = "Request Processing...";
+                    //document.getElementById("data").innerHTML = "Request Processing...";
                 }
             }
             request.send();
