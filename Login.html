@@ -33,6 +33,7 @@
 	</div>
 
 	<script type="text/javascript">
+		// validate the login form
 		function validate() {
 			var usernameLength = document.getElementsByName("username")[0].value.length;
 			var passwordLength = document.getElementsByName("password")[0].value.length;
@@ -42,6 +43,7 @@
 				document.forms[0].submit();
 		}
 
+		// get query string
 		function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -49,6 +51,7 @@
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         };
 
+        // alert if login failed and why
         function loginAlert() {
         	if(getUrlParameter("success") == "false" && getUrlParameter("reason") == "login_fail") {
         		alert("No user found. Create an account!");

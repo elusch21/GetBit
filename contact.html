@@ -87,14 +87,23 @@
 				<option>Other</option>
 			</select> <br><br>
 			Please explain your concern. <br>
-			<textarea id="concern" rows="10" cols="50"> </textarea> <br>
+			<textarea id="concern_text" rows="10" cols="50"> </textarea> <br>
 			<input class="concern_submit" type="submit" value="Submit">
 		</form>
 	</center>
 
 	<script type="text/javascript">
 		function validate() {
-			alert("Thank you for your feedback! Your response has been recorded.");
+			var flag = true;
+			for(i=0; i<document.getElementById("concern_text").value.length; i++) {
+				if(document.getElementById("concern_text").value[i] != " ")
+					flag = false;
+			}
+			if(flag == true) {
+				alert("Please type in your concern in the textbox below.");
+			} else {
+				alert("Thank you for your feedback! Your response has been recorded.");
+			}
 		}
 	</script>
 </body>

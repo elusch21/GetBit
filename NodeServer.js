@@ -7,12 +7,12 @@ var port = process.env.PORT || 3000; //heroku stuff
 
 console.log("hosted on port " + port);
 
-/*README!!!! This is our Server. It has defined inputs and outputs.
-inputs should come on the query string.
-op: string. "new" for new user, "login" for login, "add" for add coin.
-fullname, username and hashed password should come in as fullname, username, and password respectively
-just do a form submit basically
-eg: www.<our-url>.com/?op=new&fullname=admin&username=test&password=<sha512encryptedpass>*/
+/*README!!!! This is our Server. 
+It has defined inputs and outputs.
+Inputs should come on the query string.
+op: string. "new" for new user, "login" for login, "add" for add coin, "remove" for remove coin.
+fullname, username and password should come in as fullname, username, and password respectively.
+eg: www.<our-url>.com/?op=new&fullname=admin&username=test&password=testpass*/
 
 http.createServer(function (req, res) {
 	//parse url, decide operation
@@ -22,13 +22,13 @@ http.createServer(function (req, res) {
 
 	//MAIN CONTROL FLOW: DECISION BASED ON OP PARAMETER//
 	if (op == "new") {
-		/*INSERTION INTO MONGO
-		input: username, hashed password
+		/*INSERTION INTO MONGO/SIGNUP REQUEST
+		input: username, password
 		output:
 			success - string/boolean: 'true' if successfully added, 'false' otherwise
 			reason - if success false, is a string holding reason, else null
 			coins - empty array of coins for js purposes*/
-		//code here
+
 		var myObj = { "Username": username, "Password": password};
 		MongoClient.connect(uri, function(err, db) {
 			if (err) {
@@ -86,12 +86,13 @@ http.createServer(function (req, res) {
 					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=connect_fail'});
 					throw err;
 				}
-				// No users
+				// No users with entered username exists
 				if(result.length == 0) {
 					db.close();
 					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=login_fail'});
 					res.end();
-				} else { //nonzero users
+				} else { 
+				// User with entered username exists
 					var flag = 0, index;
 					for(i=0; i<result.length; i++) {
 						if(result[i]["Password"] == password) {
@@ -99,15 +100,15 @@ http.createServer(function (req, res) {
 							index = i;
 						}
 					}
-					if(flag == 0) { // If wrong Password
+					if(flag == 0) { // If password is entered incorrectly
 						db.close();
 						res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=wrong_pass'});
 						res.end();
-					} else { // If correct Password
-						console.log("Building string, coins.length: "+ result[index]["Coins"].length);
+					} else { // If password is entered correctly
+						console.log("Building string, coins.length: " + result[index]["Coins"].length);
 						var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
 						for(i = 0; i < result[index]["Coins"].length; i++) {
-							string += "'"+result[index]["Coins"][i]+"'";
+							string += "'" + result[index]["Coins"][i] + "'";
 							if(i < result[index]["Coins"].length-1) {
 								string += ",";
 							}
@@ -121,10 +122,9 @@ http.createServer(function (req, res) {
 				}
 			});
 		});
-
 	} else if (op == "add") {
 		/*ADD COIN
-		input: username, hashed password, coin
+		input: username, password, coin
 		output:
 			success - string/boolean: 'true' if successful addition, 'false' otherwise
 			reason - if success false, is a string holding reason, else null
@@ -160,7 +160,7 @@ http.createServer(function (req, res) {
 							console.log("Building string, coins.length: "+ result[0]["Coins"].length);
 							var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
 							for(i = 0; i < result[0]["Coins"].length; i++) {
-								string += "'"+result[0]["Coins"][i]+"'";
+								string += "'" + result[0]["Coins"][i] + "'";
 								if(i < result[0]["Coins"].length-1) {
 									string += ", ";
 								}
@@ -173,15 +173,13 @@ http.createServer(function (req, res) {
 						}
 					});
 				} else {
-					//the unthinkable!
+					//the unthinkable! Shouldn't happen!
 				}
 			});
 		});
 	} else if (op == 'remove') {
-		//console.log("Not yet implemented");
-		//res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Account.html?success=false&reason=not_implemented&username='+ username + '&password=' + password})
 		/*REMOVE COIN
-		input: username, hashed password, coin
+		input: username, password, coin
 		output:
 			success - string/boolean: 'true' if successful removal, 'false' otherwise
 			reason - if success false, is a string holding reason, else null
@@ -214,10 +212,10 @@ http.createServer(function (req, res) {
 							res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=login_fail'});
 							res.end();
 						} else { //correct path
-							console.log("Building string, coins.length: "+ result[0]["Coins"].length);
+							console.log("Building string, coins.length: " + result[0]["Coins"].length);
 							var string = 'https://elusch21.github.io/GetBit/Account.html?success=true&username=' + username + '&password=' + password +'&coins=[';
 							for(i = 0; i < result[0]["Coins"].length; i++) {
-								string += "'"+result[0]["Coins"][i]+"'";
+								string += "'" + result[0]["Coins"][i] + "'";
 								if(i < result[0]["Coins"].length-1) {
 									string += ", ";
 								}
@@ -230,11 +228,11 @@ http.createServer(function (req, res) {
 						}
 					});
 				} else {
-					//the unthinkable!
+					//the unthinkable! Shouldn't happen!
 				}
 			});
 		});
 	} else {
-		//the unthinkable!
+		//the unthinkable! Shouldn't happen!
 	}
 }).listen(port);
