@@ -269,7 +269,7 @@
                 if (request.readyState == 4 && request.status == 200) {
                     var result = request.responseText;
                     var obj = JSON.parse(result);
-
+                    console.log(obj);
                     for(j=0; j<val.length; j++) {
                         if (obj.data.coins[j] != null) {
                             document.getElementById("name"+j).innerHTML = obj.data.coins[j].name;
@@ -279,11 +279,11 @@
                             document.getElementById("change"+j).innerHTML = obj.data.coins[j].change + "%";
                             document.getElementById("rank"+j).innerHTML = obj.data.coins[j].rank;
                         } else {
-                            document.getElementById("name"+k).innerHTML = "error";
-                            document.getElementById("sym"+k).innerHTML = val[j];
-                            document.getElementById("price"+k).innerHTML = "error";
-                            document.getElementById("change"+k).innerHTML = "error";
-                            document.getElementById("rank"+k).innerHTML = "error";
+                            document.getElementById("name"+j).innerHTML = "error";
+                            document.getElementById("sym"+j).innerHTML = val[j];
+                            document.getElementById("price"+j).innerHTML = "error";
+                            document.getElementById("change"+j).innerHTML = "error";
+                            document.getElementById("rank"+j).innerHTML = "error";
                         }
                     }
                     for(k=val.length; k<8; k++) {
