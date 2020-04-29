@@ -44,7 +44,9 @@ http.createServer(function (req, res) {
 					throw err;
 				}
 				if (result.length != 0) {
+					db.close();
 					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=bad_acct'})
+					res.end();
 				} else {
 					var myObj = { "Full Name": fullname, "Username": username, "Password": password, "Coins": []};
 					// insert entry in the MongoDB database w/ collection called "User_Info"
