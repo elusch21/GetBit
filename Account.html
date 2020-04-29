@@ -269,7 +269,6 @@
                 if (request.readyState == 4 && request.status == 200) {
                     var result = request.responseText;
                     var obj = JSON.parse(result);
-                    console.log(obj);
                     for(j=0; j<val.length; j++) {
                         if (obj.data.coins[j] != null) {
                             document.getElementById("name"+j).innerHTML = obj.data.coins[j].name;
@@ -313,6 +312,12 @@
                     document.getElementById("price"+m).style.color = "#808080";
                     document.getElementById("change"+m).style.color = "#808080";
                     document.getElementById("rank"+m).style.color = "#808080";
+                } else if (document.getElementById("name"+m).innerHTML == "error") {
+                    document.getElementById("name"+m).style.color = "#FF0000";
+                    document.getElementById("sym"+m).style.color = "#FF0000";
+                    document.getElementById("price"+m).style.color = "#FF0000";
+                    document.getElementById("change"+m).style.color = "#FF0000";
+                    document.getElementById("rank"+m).style.color = "#FF0000";
                 } else {
                     document.getElementById("name"+m).style.color = "#000000";
                     document.getElementById("sym"+m).style.color = "#000000";
