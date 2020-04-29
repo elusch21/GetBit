@@ -81,6 +81,9 @@
 		<form onsubmit="return validate()">
 			We want to hear from you! Any concerns? <br>
 			<select id="concern" name="concern" size=1> <br><br>
+				<option>Account</option>
+				<option>Database</option>
+				<option>Coins</option>
 				<option>Security</option>
 				<option>Troubleshooting</option>
 				<option>Careers</option>
@@ -102,7 +105,9 @@
 			if(flag == true) {
 				alert("Please type in your concern in the textbox below.");
 			} else {
-				alert("Thank you for your feedback! Your response has been recorded.");
+				var concernType = document.getElementById("concern").value;
+				alert("Thank you for your feedback about " + concernType + "!\n"  
+					+ "Your response has been recorded.");
 			}
 		}
 	</script>
