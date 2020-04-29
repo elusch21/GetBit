@@ -141,7 +141,7 @@
                     <input type="hidden" name="username" id="username" value=""/>
                     <input type="hidden" name="password" id="password" value=""/>
                     <input type="text" name="coin" id="coin" placeholder="eg. BTC"/>
-                    <input class="btn2" type="button" name="add" id="add" onclick="addCoin()" value='ADD'>
+                    <input class="btn2" type="button" name="add" id="add" onclick="addCoin(coinsArr)" value='ADD'>
                     <input class="btn3" type="button" name="remove" id="remove" onclick="removeCoin()" value='REMOVE'>
                     <input type = "hidden" name="op" id="op" value="">
                 </form>
@@ -178,10 +178,12 @@
         }
 
         // add coin to database
-        function addCoin() {
+        function addCoin(arrayOfCoins) {
             var coin = document.getElementById("coin").value;
             if (coin == "") {
                 alert("Please enter coin to add!");
+            } else if(arrayOfCoins.length == 8) {
+                alert("Coin limit reached!")
             } else {
                 document.getElementById("op").value = "add";
                 document.getElementById("username").value = getUrlParameter("username");
