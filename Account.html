@@ -191,7 +191,9 @@
         // add coin to database
         function addCoin(arrayOfCoins) {
             var coin = document.getElementById("coin").value;
+            console.log(coin);
             coin.replace(/\W/g, '');
+            console.log(coin);
             if (coin == "") {
                 alert("Please enter coin to add!");
             } else if(arrayOfCoins.length == 8) {
