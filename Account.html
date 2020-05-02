@@ -191,7 +191,6 @@
         // add coin to database
         function addCoin(arrayOfCoins) {
             var coin = document.getElementById("coin").value;
-            coin.replace(/\W/g, '');
             if (coin == "") {
                 alert("Please enter coin to add!");
             } else if(arrayOfCoins.length == 8) {
@@ -210,7 +209,6 @@
         // remove coin from database
         function removeCoin(arrayOfCoins) {
             var coin = document.getElementById("coin").value;
-            coin.replace(/\W/g, '');
             if (coin == "") {
                 alert("Please enter coin to remove");
             } else if(alreadyInArray(coin, arrayOfCoins) == false) {
@@ -228,7 +226,6 @@
         function search() {
             request = new XMLHttpRequest();
             var coin = document.getElementById('s_coin').value;
-            coin.replace(/\W/g, '');
             request.open("GET", "https://api.coinranking.com/v1/public/coins?base=USD&symbols="
                                 + coin + "&timePeriod=24h", true);
 

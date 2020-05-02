@@ -138,16 +138,7 @@
 		@media (max-width: 550px){
 		  .SG .box{max-height:325px;}
 		}
-/*		@media (max-width: 425px){
-		  .SG .box{max-height: 500px;
-		  }
-		}
-		@media (max-width: 425px){
-		  .X{height:400px;}
-		}*/
-
-
-
+		
 		/* responsive grid*/
 		@media (max-width: 970px){
 		  .SG .sgLi{width: 180px;}
@@ -161,12 +152,10 @@
 		  height: 375px;
 		  padding: 25px;
 		  display:inline-block;
-/*		  background: blue;*/
 		}
 
 		.first-box {
 		  width:300px; 
-		  /*padding: 50px;*/
 		  background: azure;
 		  border: solid;
 		  border-width: 1px;
@@ -181,31 +170,8 @@
 
 		.first-box p {
 		  color: #000000;
-/*		  padding-left: 80px;
-		  padding-top: 50px;*/
 		  text-align: center;
 		}
-
-/*		.second-box {
-		  width:300px; 
-		  height: 175px; 
-		  border: solid;
-		  border-color: black; 
-		  float:right; 
-		  background: azure;
-		  margin: 50px
-		  text: center;
-		  box-shadow: 0 2px 4px rgba(0,0,0, .2);
-		  border-radius: 15px;
-		  display: inline-grid;
-		}*/
-
-/*		.second-box p {
-		  color: #000000;
-		  text-align: center;
-		  padding-left: 110px;
-		  padding-top: 50px;
-		}*/
 
 		.Y{
 		  margin: auto;
@@ -247,7 +213,6 @@
 			request.onreadystatechange = function() {
 				if (request.readyState == 4 && request.status == 200) {
 					//successful request, use data
-					//alert(request.responseText);
 					result = request.responseText;
 
 					obj = JSON.parse(result);
@@ -260,17 +225,6 @@
 					str4 = ("Record Price (USD): ".bold()).fontsize("5") + "<br>" + "<br>" + "$".fontsize("7")+ (parseFloat(obj["data"]["coins"][val]["allTimeHigh"]["price"]).toFixed(2).toString()).fontsize("7");
 					str5 = ("Current Price (USD): ".bold()).fontsize("5") + "<br>" + "<br>" + "$".fontsize("7")+(parseFloat(obj["data"]["coins"][val]["price"]).toFixed(2).toString()).fontsize("7");
 
-					// str = "Coin Name: " + obj["data"]["coins"][val]["name"] + "<br>" + "<br>" + 
-					// 		 "Coin Symbol: " + obj["data"]["coins"][val]["symbol"] + "<br>" + "<br>" + 
-					// 		 "Rank: " + obj["data"]["coins"][val]["rank"] + "<br>" + "<br>" + 
-					// 		 "Description: " + obj["data"]["coins"][val]["description"] + "<br>" + "<br>" +
-					// 		 "Current Price (USD): $" + parseFloat(obj["data"]["coins"][val]["price"]).toFixed(2) + "<br>" + "<br>" + history;
-
-					// document.getElementById("1").style.display = "block";
-					// document.getElementById("2").style.display = "block";
-					// document.getElementById("3").style.display = "block";
-					// document.getElementById("4").style.display = "block";
-
 					document.getElementById("4").style.display = "block";
 
 					document.getElementById("name").innerHTML = str1;
@@ -280,7 +234,6 @@
 					document.getElementById("price").innerHTML = str5;
 					document.getElementById("p_hist").innerHTML = history;
 
-					// document.getElementById("data").innerHTML = str;
 
 				} else if (request.readyState == 4) {
 					//failed request, handle it
@@ -316,11 +269,6 @@
 	  <p>Track your Crypto Portfolio now!</p>
 	</div>
 
-<!-- 	  <div class="myBox">
-		  blah blah blah.
-		  <a href="http://google.com">link</a>
-	  </div> -->
-
 	 <div class="demo">
 	    <span id="myspan1" onclick="makeCall(0, '24h')">Rank 1</span>
 	    <span id="myspan2" onclick="makeCall(1, '24h')">Rank 2</span>
@@ -330,9 +278,6 @@
 	    <span id="myspan6" onclick="makeCall(5, '24h')">Rank 6</span>
 	</div>
 
-	<!-- <p>Type a symbol here (eg BTC, ETH)<input type="text" id="symbol" name="symbol" value=""><br></p>
-	<p>Type desired price history(eg 24h, 7d, 30d)<input type="text" id="price_hist" name="price_hist" value="24h"><br></p> -->
-<!-- 	<button onclick="makeCall(document.getElementById('symbol').value, document.getElementById('price_hist').value)">Click Me to get data!</button> -->
 	<div class="info">
 		<center>
 			<p> Click above to learn more about the top 6 Cryptocurrencies! </p>
@@ -363,42 +308,6 @@
 			</div>
 	</div>
 </center>
-<!-- <div class="Y" id="4">
-<center>
-	<div class="container" id="1">
-		 <div class="first-box">
-		    <p id="name"></p>
-		  </div>
-
-		  <div class="second-box">
-		    <p id="sym"></p>
-		  </div>
-	</div>
-
-		<div class="container" id="2">
-		 <div class="first-box">
-		    <p id="rank"></p>
-		  </div>
-
-		  <div class="second-box">
-		    <p id="desc"></p>
-		  </div>
-	</div>
-
-		<div class="container" id="3">
-		 <div class="first-box">
-		    <p id="price"></p>
-		  </div>
-
-		  <div class="second-box">
-		    <p id="p_hist"></p>
-		  </div>
-	</div>
-</center>
-</div> -->
-
-
-
 		<div class="X">
 			<ul class="SG">
 			  <li class="sgLi">
