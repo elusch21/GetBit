@@ -1,3 +1,4 @@
+// Include mongo client and connect mongo cluster
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://QSEJ:Comp20Final@cluster0-wdjde.mongodb.net/test?retryWrites=true&w=majority";
 var http = require('http');
@@ -7,7 +8,7 @@ var port = process.env.PORT || 3000; //heroku stuff
 
 console.log("hosted on port " + port);
 
-/*README!!!! This is our Server. 
+/*README!!!! This is our Server.
 It has defined inputs and outputs.
 Inputs should come on the query string.
 op: string. "new" for new user, "login" for login, "add" for add coin, "remove" for remove coin.
@@ -91,7 +92,7 @@ http.createServer(function (req, res) {
 					db.close();
 					res.writeHead(301, {'Location': 'https://elusch21.github.io/GetBit/Login.html?success=false&reason=login_fail'});
 					res.end();
-				} else { 
+				} else {
 				// User with entered username exists
 					var flag = 0, index;
 					for(i=0; i<result.length; i++) {
