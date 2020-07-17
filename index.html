@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<style>
 		.module {
-		  background: 
+		  background:
 		    linear-gradient(
 		      rgba(0, 0, 0, 0.4),
 		      rgba(0, 0, 0, 0.4)
@@ -67,8 +67,8 @@
 		    cursor: pointer;
 		}
 
-		div.demo span:hover { 
-			background-color: #FF0000; 
+		div.demo span:hover {
+			background-color: #FF0000;
 		}
 
 		div.info {
@@ -138,7 +138,7 @@
 		@media (max-width: 550px){
 		  .SG .box{max-height:325px;}
 		}
-		
+
 		/* responsive grid*/
 		@media (max-width: 970px){
 		  .SG .sgLi{width: 180px;}
@@ -148,18 +148,18 @@
 		}
 
 		.container {
-		  max-width:1100px; 
+		  max-width:1100px;
 		  height: 375px;
 		  padding: 25px;
 		  display:inline-block;
 		}
 
 		.first-box {
-		  width:300px; 
+		  width:300px;
 		  background: azure;
 		  border: solid;
 		  border-width: 1px;
-		  border-color: black; 
+		  border-color: black;
 		  height: 175px;
 		  margin: 10px;
 		  box-shadow: 0 2px 4px rgba(0,0,0, .2);
@@ -189,19 +189,21 @@
 		@media only screen and (max-width: 1245px) {
 		  .Y {
 		    height: 900px;
-		  } 
+		  }
 		}
 
 		@media only screen and (max-width: 850px) {
 		  .Y {
 		    height:1260px;
-		  } 
+		  }
 		}
 
 	</style>
 
 	<title>CoinConnect</title>
 	<script type="text/javascript">
+		// Function for API Call
+		// val = coin rank, period = % change over time
 		function makeCall(val, period) {
 			//make request object
 			request = new XMLHttpRequest();
@@ -216,11 +218,11 @@
 					result = request.responseText;
 
 					obj = JSON.parse(result);
-					
+
 					var history = ("Price 24 hours ago (USD): ".bold()).fontsize("5") + "<br>"+ "<br>"+ "$".fontsize("7") + (parseFloat(obj["data"]["coins"][val]["history"][0]).toFixed(2).toString()).fontsize("7") + "<br>";
 
 					str1 = ("Coin Name: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["name"].fontsize("7");
-					str2 = ("Coin Symbol: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["symbol"].fontsize("7"); 
+					str2 = ("Coin Symbol: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["symbol"].fontsize("7");
 					str3 = ("Rank: ".bold()).fontsize("5") + "<br>" + "<br>" + (obj["data"]["coins"][val]["rank"].toString()).fontsize("7");
 					str4 = ("Record Price (USD): ".bold()).fontsize("5") + "<br>" + "<br>" + "$".fontsize("7")+ (parseFloat(obj["data"]["coins"][val]["allTimeHigh"]["price"]).toFixed(2).toString()).fontsize("7");
 					str5 = ("Current Price (USD): ".bold()).fontsize("5") + "<br>" + "<br>" + "$".fontsize("7")+(parseFloat(obj["data"]["coins"][val]["price"]).toFixed(2).toString()).fontsize("7");
@@ -295,7 +297,7 @@
 				<div class="first-box">
 				    <p id="rank"></p>
 				</div>
-				<br> <br> 
+				<br> <br>
 				<div class="first-box">
 				    <p id="desc"></p>
 				</div>
@@ -313,18 +315,18 @@
 			  <li class="sgLi">
 			    <div class="box">
 			    <h3>
-			    	<a class="link_button" href="SignUp.html">Sign Up</a> 
+			    	<a class="link_button" href="SignUp.html">Sign Up</a>
 			    	now to earn the following features!
 			    </h3>
 			    <ul class="df">
 			    <li>Keep a portfolio of up to 8 different coins and track your portfolio worth.</li>
 			    <li>Have access to learn and track 10,000 different coins in our database.</li>
-			    <li>Want access to more data about each coin? Let us know! 
+			    <li>Want access to more data about each coin? Let us know!
 			    	<a class="link_button" href="contact.html">Contact Us</a>
 			    </li>
-			    </ul> 
+			    </ul>
 			  </div>
-			 </li> 
+			 </li>
 			</ul>
 		</div>
 </center>
