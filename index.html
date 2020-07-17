@@ -203,7 +203,11 @@
 	<title>CoinConnect</title>
 	<script type="text/javascript">
 		// Function for API Call
-		// val = coin rank, period = % change over time
+<<<<<<< HEAD
+		// val = coin rank, period = % change over time (24hr, 7d, 30d)
+=======
+		// val = coin rank, period = time period of percent change
+>>>>>>> 02069474a21b0205cbaa22eebdd43b9b74f0ab3b
 		function makeCall(val, period) {
 			//make request object
 			request = new XMLHttpRequest();
@@ -217,23 +221,36 @@
 					//successful request, use data
 					result = request.responseText;
 
+					// parse data
 					obj = JSON.parse(result);
 
+					// pull price history from API
 					var history = ("Price 24 hours ago (USD): ".bold()).fontsize("5") + "<br>"+ "<br>"+ "$".fontsize("7") + (parseFloat(obj["data"]["coins"][val]["history"][0]).toFixed(2).toString()).fontsize("7") + "<br>";
 
-					str1 = ("Coin Name: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["name"].fontsize("7");
-					str2 = ("Coin Symbol: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["symbol"].fontsize("7");
-					str3 = ("Rank: ".bold()).fontsize("5") + "<br>" + "<br>" + (obj["data"]["coins"][val]["rank"].toString()).fontsize("7");
-					str4 = ("Record Price (USD): ".bold()).fontsize("5") + "<br>" + "<br>" + "$".fontsize("7")+ (parseFloat(obj["data"]["coins"][val]["allTimeHigh"]["price"]).toFixed(2).toString()).fontsize("7");
-					str5 = ("Current Price (USD): ".bold()).fontsize("5") + "<br>" + "<br>" + "$".fontsize("7")+(parseFloat(obj["data"]["coins"][val]["price"]).toFixed(2).toString()).fontsize("7");
+					// pull name from from API
+					name = ("Coin Name: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["name"].fontsize("7");
+					
+					// pull symbol from API
+					symbol = ("Coin Symbol: ".bold()).fontsize("5") + "<br>" + "<br>" + obj["data"]["coins"][val]["symbol"].fontsize("7");
+					
+					// pull rank from API
+					rank = ("Rank: ".bold()).fontsize("5") + "<br>" + "<br>" + (obj["data"]["coins"][val]["rank"].toString()).fontsize("7");
+					
+					// pull highest price from API
+					high_price = ("Record Price (USD): ".bold()).fontsize("5") + "<br>" + "<br>" + "$".fontsize("7")+ (parseFloat(obj["data"]["coins"][val]["allTimeHigh"]["price"]).toFixed(2).toString()).fontsize("7");
+					
+					// pull current price from API
+					price = ("Current Price (USD): ".bold()).fontsize("5") + "<br>" + "<br>" + "$".fontsize("7")+(parseFloat(obj["data"]["coins"][val]["price"]).toFixed(2).toString()).fontsize("7");
 
+					// make table displable 
 					document.getElementById("4").style.display = "block";
 
-					document.getElementById("name").innerHTML = str1;
-					document.getElementById("sym").innerHTML = str2;
-					document.getElementById("rank").innerHTML = str3;
-					document.getElementById("desc").innerHTML = str4;
-					document.getElementById("price").innerHTML = str5;
+					// update the information on the page
+					document.getElementById("name").innerHTML = name;
+					document.getElementById("sym").innerHTML = symbol;
+					document.getElementById("rank").innerHTML = rank;
+					document.getElementById("desc").innerHTML = high_price;
+					document.getElementById("price").innerHTML = price;
 					document.getElementById("p_hist").innerHTML = history;
 
 
@@ -250,6 +267,7 @@
 		}
 	</script>
 </head>
+
 <body>
 <center>
 <!--Standard Nav Bar -->
@@ -265,6 +283,7 @@
       	</div>
 		<a href="contact.html">Contact Us</a>
 	</div>
+
 
 	<div class="module mid">
 	  <h2>CoinConnect</h2>
